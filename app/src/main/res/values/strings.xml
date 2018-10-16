@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">Recipe Binder</string>
     <string name="action_settings">Settings</string>
+    <string name="edit_email">Email</string>
+    <string name="edit_pass">Password</string>
+    <string name="view_Email_box">Enter your email</string>
+    <string name="view_Pass_box">Enter your password</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_google_signin">Sign in with Google</string>
 </resources>

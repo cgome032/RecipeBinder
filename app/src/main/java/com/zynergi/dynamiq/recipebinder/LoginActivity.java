@@ -8,6 +8,9 @@ import android.util.Log;
 import android.widget.*;
 import android.view.*;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseApp;
@@ -26,6 +29,12 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         mAuth = FirebaseAuth.getInstance();
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestEmail()
+                .build();
+
+        // Build a GoogleSignInClient with the options specified by gso.
+    //    GoogleSignInClient mGoogleSignInClient = GoogleSignIn.getClient();
     }
 
     public void onStart(){
@@ -67,6 +76,18 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
+
+
+    }
+
+    public void googleSigninClick(View view){
+        EditText editEmail = findViewById(R.id.editEmail);
+        EditText editPass = findViewById(R.id.editPass);
+        String email = editEmail.getText().toString();
+        String pass = editPass.getText().toString();
+
+
+
 
 
     }

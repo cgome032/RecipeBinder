@@ -10,7 +10,7 @@ import java.util.List;
 public class Post {
     private long uid; //user id associated wit account making the post (made a long for now just a place holder we can talk about it later)
     private long id; //id of the post in the database
-    //private Recipe recipe;
+    private Recipe recipe;
     private byte[] image;
     private List<Comment> comments;
     private int likes;
@@ -55,7 +55,11 @@ public class Post {
         return uid;
     }
 
-    //TODO:Display function wanted to talk about how this will be done with the team before I start
-    //Maybe have it display just an image and the name of the recipe then on click a separate display
-    //will show the recipe and any comments
+    public Recipe getRecipe() {
+        return recipe;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
+    }
 }

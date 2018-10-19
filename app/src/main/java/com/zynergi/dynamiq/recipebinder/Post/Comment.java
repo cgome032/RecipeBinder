@@ -35,6 +35,4 @@ public class Comment {
     public long getPostid() {
         return postid;
     }
-
-    //TODO: display (probably will just display its own text as a part of a post's comment list)
 }

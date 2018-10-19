@@ -1,4 +1,4 @@
-package com.zynergi.dynamiq.recipebinder;
+package com.zynergi.dynamiq.recipebinder.Post;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,9 +7,11 @@ public class Recipe {
 
     // Ingredients list for Recipe
     private List<String> ingredients;
+    private List<String> steps;
 
     public Recipe() {
         this.ingredients = new ArrayList<>();
+        this.steps = new ArrayList<>();
     }
 
     public List<String> getIngredients() {
@@ -22,5 +24,13 @@ public class Recipe {
 
     public void addIngredient(String ingredient) {
         this.ingredients.add(ingredient);
+    }
+
+    public List<String> getSteps() {
+        return steps;
+    }
+
+    public void setSteps(List<String> steps) {
+        this.steps = steps;
     }
 }

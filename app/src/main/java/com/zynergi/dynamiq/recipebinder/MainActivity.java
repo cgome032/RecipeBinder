@@ -1,4 +1,4 @@
-package com.zynergi.dynamiq.recipebinder.Activity;
+package com.zynergi.dynamiq.recipebinder;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;

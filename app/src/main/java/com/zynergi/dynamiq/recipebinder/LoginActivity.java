@@ -8,15 +8,10 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.*;
 import android.view.*;
-import android.view.View.OnClickListener;
 
-import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
-import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -58,7 +53,7 @@ public class LoginActivity extends AppCompatActivity {
     }
    public void loginClick(View view){
         EditText editEmail = findViewById(R.id.editEmail);
-        EditText editPass = findViewById(R.id.editPass);
+        EditText editPass = findViewById(R.id.textPass);
         String email = editEmail.getText().toString();
         String pass = editPass.getText().toString();
 

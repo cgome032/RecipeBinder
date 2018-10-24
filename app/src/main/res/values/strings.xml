@@ -7,4 +7,5 @@
     <string name="view_Pass_box">Enter your password</string>
     <string name="btn_login">Login</string>
     <string name="btn_google_signin">Sign in with Google</string>
+    <string name="btn_sign_up_view">Sign-Up</string>
 </resources>

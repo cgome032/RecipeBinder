@@ -28,18 +28,19 @@
         app:layout_constraintTop_toBottomOf="@+id/editEmail" />
 
     <EditText
-        android:id="@+id/editPass"
+        android:id="@+id/textPass"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="15dp"
+        android:layout_marginTop="3dp"
+        android:layout_marginEnd="16dp"
         android:ems="10"
         android:hint="@string/edit_pass"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passtextbox" />
+        app:layout_constraintTop_toBottomOf="@+id/passtextbox"
+        android:autofillHints="" />
 
     <EditText
         android:id="@+id/editEmail"
@@ -68,7 +69,7 @@
         android:text="@string/btn_login"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editPass" />
+        app:layout_constraintTop_toBottomOf="@+id/textPass" />
 
     <Button
         android:id="@+id/btn_google"
@@ -83,5 +84,18 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_login" />
+
+    <Button
+        android:id="@+id/btn_signUp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:onClick="signupClick"
+        android:text="@string/btn_sign_up_view"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_google" />
 
 </android.support.constraint.ConstraintLayout>

@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "520424265962",
+    "firebase_url": "https://recipebinder-e623f.firebaseio.com",
+    "project_id": "recipebinder-e623f",
+    "storage_bucket": "recipebinder-e623f.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:520424265962:android:2cafb880531fe0e6",
+        "android_client_info": {
+          "package_name": "com.zynergi.dynamiq.recipebinder"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "520424265962-907ldke92l4nktvo64s5apc5q5iea92r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJsX5Zqu6nID1P9BwRG96b2zj9yrVv0dc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

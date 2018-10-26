@@ -10,6 +10,11 @@ public class Profile {
         this.name = "";
         this.description = "";
     }
+    public Profile(String fname, String fdescription)
+    {
+        this.name = fname;
+        this.description = fdescription;
+    }
 
     public String getName() {
         return name;

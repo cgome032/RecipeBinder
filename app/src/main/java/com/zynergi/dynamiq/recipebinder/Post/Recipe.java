@@ -6,12 +6,19 @@ import java.util.List;
 public class Recipe {
 
     // Ingredients list for Recipe
+    private String name;
     private List<String> ingredients;
     private List<String> steps;
 
     public Recipe() {
         this.ingredients = new ArrayList<>();
         this.steps = new ArrayList<>();
+    }
+
+    public Recipe(String sname, List<String> sIngredients, List<String> sSteps){
+        this.name = sname;
+        this.ingredients = sIngredients;
+        this.steps = sSteps;
     }
 
     public List<String> getIngredients() {

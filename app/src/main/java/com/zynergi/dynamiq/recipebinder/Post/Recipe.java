@@ -21,6 +21,8 @@ public class Recipe {
         this.steps = sSteps;
     }
 
+    public String getName(){return name;}
+
     public List<String> getIngredients() {
         return this.ingredients;
     }

@@ -67,6 +67,7 @@ public class Recipe_Activity extends AppCompatActivity {
                 stepsTextView = (TextView) itemView.findViewById(R.id.recipe_steps);
             }
         }
+
         // Usually involves inflating a layout from XML and returning the holder
         @Override
         public StepsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -91,11 +92,12 @@ public class Recipe_Activity extends AppCompatActivity {
             TextView textView = viewHolder.stepsTextView;
             textView.setText(ingredient);
         }
+
         @Override
         public int getItemCount() {
             return stepsList.size();
         }
-
+    }
     public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
 
         private List<String> ingredientList;
@@ -148,11 +150,11 @@ public class Recipe_Activity extends AppCompatActivity {
             TextView textView = viewHolder.ingredientTextView;
             textView.setText(ingredient);
         }
+
         @Override
         public int getItemCount() {
             return ingredientList.size();
         }
-
 
 
     }
@@ -160,4 +162,4 @@ public class Recipe_Activity extends AppCompatActivity {
     //Recipe name
     //Recipe Ingredient List
     //Recipe Instructions List
-
+}

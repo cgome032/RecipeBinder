@@ -19,15 +19,21 @@ public class Recipe_Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        RecyclerView rvIngredients = (RecyclerView) findViewById(R.id.ingredient_list);
-        RecyclerView rvSteps = (RecyclerView) findViewById(R.id.recipe_steps);
         setContentView(R.layout.activity_recipe_);
 
+        TextView Recipe_Name = findViewById(R.id.recipe_name);
+
+
+        RecyclerView rvIngredients = (RecyclerView) findViewById(R.id.ingredient_list);
+        RecyclerView rvSteps = (RecyclerView) findViewById(R.id.recipe_steps);
+
+
         //Initialize Recipe, retrieve data from recipe
-        //TODO
         //use Intent to get Recipe
-        Recipe recipe = getIntent().getSerializableExtra("Recipe");
-        
+        Recipe recipe = (Recipe) getIntent().getSerializableExtra("Recipe");
+
+        Recipe_Name.setText(recipe.getName());
+
         List<String> ing_list = recipe.getIngredients();
         List<String> step_list = recipe.getSteps();
 
@@ -45,18 +51,16 @@ public class Recipe_Activity extends AppCompatActivity {
 
         private List<String> stepsList;
 
+
         // Provide a direct reference to each of the views within a data item
         // Used to cache the views within the item layout for fast access
         public class ViewHolder extends RecyclerView.ViewHolder {
             // Your holder should contain a member variable
             // for any view that will be set as you render a row
-            public TextView stepsTextView;
+            private TextView stepsTextView;
 
             // Pass in the contact array into the constructor
-            public List<String> StepsAdapter(List<String> steps) {
-                stepsList = steps;
-                return stepsList;
-            }
+
 
             // We also create a constructor that accepts the entire item row
             // and does the view lookups to find each subview
@@ -65,8 +69,12 @@ public class Recipe_Activity extends AppCompatActivity {
                 // to access the context from any ViewHolder instance.
                 super(itemView);
 
-                stepsTextView = (TextView) itemView.findViewById(R.id.recipe_steps);
+                stepsTextView = itemView.findViewById(R.id.recipe_steps);
             }
+        }
+
+        public StepsAdapter(List<String> steps) {
+            stepsList = steps;
         }
 
         // Usually involves inflating a layout from XML and returning the holder
@@ -108,24 +116,22 @@ public class Recipe_Activity extends AppCompatActivity {
         public class ViewHolder extends RecyclerView.ViewHolder {
             // Your holder should contain a member variable
             // for any view that will be set as you render a row
+
+
             public TextView ingredientTextView;
 
-            // Pass in the contact array into the constructor
-            public List<String> IngredientsAdapter(List<String> ingredients) {
-                ingredientList = ingredients;
-                return ingredientList;
-            }
-
-            // We also create a constructor that accepts the entire item row
-            // and does the view lookups to find each subview
             public ViewHolder(View itemView) {
-                // Stores the itemView in a public final member variable that can be used
-                // to access the context from any ViewHolder instance.
                 super(itemView);
-
-                ingredientTextView = (TextView) itemView.findViewById(R.id.ingredient_name);
+                ingredientTextView = itemView.findViewById(R.id.ingredient_name);
             }
         }
+            // Pass in the contact array into the constructor
+        public IngredientAdapter(List<String> ingredients) {
+            ingredientList = ingredients;
+        }
+
+        // We also create a constructor that accepts the entire item row
+        // and does the view lookups to find each subview
 
         // Usually involves inflating a layout from XML and returning the holder
         @Override

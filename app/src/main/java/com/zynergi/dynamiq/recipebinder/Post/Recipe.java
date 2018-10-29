@@ -15,16 +15,14 @@ public class Recipe {
         this.steps = new ArrayList<>();
     }
 
-    public Recipe(String sname, ArrayList<String> sIngredients, ArrayList<String> sSteps){
-        this.name = sname;
-        this.ingredients = sIngredients;
-        this.steps = sSteps;
-    }
-
-    public String getName(){return name;}
+    public String getName(){return this.name;}
 
     public List<String> getIngredients() {
         return this.ingredients;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setIngredients(ArrayList<String> ingredients) {

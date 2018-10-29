@@ -17,23 +17,23 @@ public class createRecipeActivity extends AppCompatActivity {
     Recipe completedRecipe = new Recipe();
     ArrayList<String> steps;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference myRef = database.getReference("Recipes");
+    private DatabaseReference mDatabase;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mDatabase = FirebaseDatabase.getInstance().getReference();
         setContentView(R.layout.activity_create_recipe);
         steps = new ArrayList<>();
 
     }
 
     public void addIngredients(View view){
-        EditText eIngredents = (EditText) findViewById(R.id.editIngredients);
-        String tmpIngredients = eIngredents.getText().toString();
+        EditText eIngredients = (EditText) findViewById(R.id.editIngredients);
+        String tmpIngredients = eIngredients.getText().toString();
         completedRecipe.addIngredient(tmpIngredients);
-        eIngredents.setText("");
+        eIngredients.setText("");
 
     }
 
@@ -47,8 +47,10 @@ public class createRecipeActivity extends AppCompatActivity {
     public void submitRecipe(View view){
         EditText eName = findViewById(R.id.editName);
         String sName = eName.getText().toString();
-        completedRecipe.s
+        completedRecipe.setName(sName);
         completedRecipe.setSteps(steps);
+
+        mDatabase.child("Recipes").setValue(completedRecipe);
 
 
     }

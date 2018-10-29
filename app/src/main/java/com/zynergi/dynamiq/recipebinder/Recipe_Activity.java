@@ -27,6 +27,7 @@ public class Recipe_Activity extends AppCompatActivity {
         //TODO
         //use Intent to get Recipe
         Recipe recipe = getIntent().getSerializableExtra("Recipe");
+        
         List<String> ing_list = recipe.getIngredients();
         List<String> step_list = recipe.getSteps();
 

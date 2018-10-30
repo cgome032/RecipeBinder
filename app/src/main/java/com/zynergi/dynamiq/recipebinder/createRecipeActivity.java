@@ -14,33 +14,43 @@ import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class createRecipeActivity extends AppCompatActivity {
 
     private static final String TAG ="firestore";
     Recipe completedRecipe = new Recipe();
     ArrayList<String> steps;
+    ArrayList<String> ingredients;
+    Map<String, Object> data1 = new HashMap<>();
  //   DatabaseReference mDatabase;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+//    CollectionReference recipes = db.collection("recipes");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
    //     mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
         setContentView(R.layout.activity_create_recipe);
         steps = new ArrayList<>();
-
+        ingredients = new ArrayList<>();
 
     }
 
     public void addIngredients(View view){
         EditText eIngredients = (EditText) findViewById(R.id.editIngredients);
         String tmpIngredients = eIngredients.getText().toString();
-        completedRecipe.addIngredient(tmpIngredients);
+        ingredients.add(tmpIngredients);
+     //   completedRecipe.addIngredient(tmpIngredients);
         eIngredients.getText().clear();
 
     }
@@ -56,13 +66,13 @@ public class createRecipeActivity extends AppCompatActivity {
     public void submitRecipe(View view){
         EditText eName = findViewById(R.id.editName);
         String sName = eName.getText().toString();
-        completedRecipe.setName(sName);
-        completedRecipe.setSteps(steps);
-        steps.clear();
-
- //       String id = mDatabase.push().getKey();
+    //    completedRecipe.setName(sName);
+    //    completedRecipe.setSteps(steps);
+        data1.put("name",sName);
+        data1.put("ingredients",ingredients);
+        data1.put("steps",steps);
         db.collection("recipes")
-                .add(completedRecipe)
+                .add(data1)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
@@ -75,7 +85,9 @@ public class createRecipeActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
-        completedRecipe = new Recipe();
+        steps.clear();
+        ingredients.clear();
+
     }
 /*
         mDatabase.child(id).setValue(completedRecipe, new DatabaseReference.CompletionListener(){

@@ -14,9 +14,9 @@
         android:layout_marginEnd="16dp"
         android:onClick="addIngredients"
         android:text="@string/addIngred"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editSteps"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editIngredients"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/editSteps" />
+        app:layout_constraintStart_toEndOf="@+id/editIngredients" />
 
     <EditText
         android:id="@+id/editName"
@@ -36,7 +36,7 @@
         app:layout_constraintVertical_bias="0.0" />
 
     <EditText
-        android:id="@+id/editSteps"
+        android:id="@+id/editIngredients"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
-        android:id="@+id/editIngredients"
+        android:id="@+id/editSteps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -63,7 +63,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="64dp"
         android:layout_marginEnd="242dp"
+        android:layout_marginBottom="88dp"
         android:text="@string/foodName"
+        app:layout_constraintBottom_toTopOf="@+id/textView2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -73,11 +75,12 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="143dp"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="561dp"
         android:text="@string/ingredientList"
-        app:layout_constraintBottom_toTopOf="@+id/editSteps"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <TextView
         android:id="@+id/textView3"
@@ -96,13 +99,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="17dp"
+        android:layout_marginEnd="16dp"
         android:onClick="addSteps"
         android:text="@string/addSteps"
-        app:layout_constraintBaseline_toBaselineOf="@+id/editIngredients"
+        app:layout_constraintBaseline_toBaselineOf="@+id/editSteps"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.514"
-        app:layout_constraintStart_toEndOf="@+id/editIngredients" />
+        app:layout_constraintStart_toEndOf="@+id/editSteps" />
 
     <Button
         android:id="@+id/btnRecipe"

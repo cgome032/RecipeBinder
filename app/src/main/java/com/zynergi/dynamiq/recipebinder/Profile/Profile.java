@@ -1,10 +1,12 @@
 package com.zynergi.dynamiq.recipebinder.Profile;
 
+import java.util.ArrayList;
+
 public class Profile {
     // Profile name
     private String name;
     private String description;
-
+    private ArrayList<String> postedRecipes;
 
     public Profile() {
         this.name = "";
@@ -31,4 +33,9 @@ public class Profile {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public ArrayList<String> getPostedRecipes() {
+        return postedRecipes;
+    }
+
 }

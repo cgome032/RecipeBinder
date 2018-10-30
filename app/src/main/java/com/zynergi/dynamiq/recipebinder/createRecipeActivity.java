@@ -1,30 +1,36 @@
 package com.zynergi.dynamiq.recipebinder;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.FirebaseError;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 
 import java.util.ArrayList;
 
 public class createRecipeActivity extends AppCompatActivity {
 
-
+    private static final String TAG ="firestore";
     Recipe completedRecipe = new Recipe();
     ArrayList<String> steps;
-    DatabaseReference mDatabase;
-
+ //   DatabaseReference mDatabase;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
+   //     mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
         setContentView(R.layout.activity_create_recipe);
         steps = new ArrayList<>();
 
@@ -52,8 +58,23 @@ public class createRecipeActivity extends AppCompatActivity {
         String sName = eName.getText().toString();
         completedRecipe.setName(sName);
         completedRecipe.setSteps(steps);
-        String id = mDatabase.push().getKey();
-
+ //       String id = mDatabase.push().getKey();
+        db.collection("recipes")
+                .add(completedRecipe)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.w(TAG, "Error adding document", e);
+                    }
+                });
+    }
+/*
         mDatabase.child(id).setValue(completedRecipe, new DatabaseReference.CompletionListener(){
             public void onComplete(DatabaseError error, DatabaseReference ref){
                 System.out.println("Value was set. Error = "+error);
@@ -61,4 +82,5 @@ public class createRecipeActivity extends AppCompatActivity {
                 }
         });
     }
+    */
 }

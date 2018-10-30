@@ -10,6 +10,7 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        multiDexEnabled true
     }
     buildTypes {
         release {
@@ -34,6 +35,8 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.google.android.gms:play-services-auth:16.0.1'
     implementation 'com.google.firebase:firebase-database:16.0.4'
+    implementation 'com.google.firebase:firebase-firestore:17.1.2'
+    implementation 'com.android.support:multidex:1.0.3'
     //implementation 'com.google.firebase:firebase-database:16.0.1:15.0.0'
    // implementation 'com.google.firebase:firebase-database:15.0.0'
 }

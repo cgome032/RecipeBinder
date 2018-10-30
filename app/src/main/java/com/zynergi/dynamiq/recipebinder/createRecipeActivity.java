@@ -58,6 +58,8 @@ public class createRecipeActivity extends AppCompatActivity {
         String sName = eName.getText().toString();
         completedRecipe.setName(sName);
         completedRecipe.setSteps(steps);
+        steps.clear();
+
  //       String id = mDatabase.push().getKey();
         db.collection("recipes")
                 .add(completedRecipe)
@@ -73,6 +75,7 @@ public class createRecipeActivity extends AppCompatActivity {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
+        completedRecipe = new Recipe();
     }
 /*
         mDatabase.child(id).setValue(completedRecipe, new DatabaseReference.CompletionListener(){

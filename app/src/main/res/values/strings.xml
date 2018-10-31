@@ -8,4 +8,10 @@
     <string name="btn_login">Login</string>
     <string name="btn_google_signin">Sign in with Google</string>
     <string name="btn_sign_up_view">Sign-Up</string>
+    <string name="foodName">Enter your recipe\'s name</string>
+    <string name="ingredientList">Please list your ingredients one at a time</string>
+    <string name="stepList">Please enter the steps one at a time</string>
+    <string name="addIngred">Add</string>
+    <string name="addSteps">Add</string>
+    <string name="submitRecipe">Submit</string>
 </resources>

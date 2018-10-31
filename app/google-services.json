@@ -23,6 +23,22 @@
           }
         },
         {
+          "client_id": "336405612908-h5t6urlmn3aqsnp6j7epd54o5sg512r2.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zynergi.dynamiq.recipebinder",
+            "certificate_hash": "be5a54fb773920d34c1d3733b38999ba42cfe658"
+          }
+        },
+        {
+          "client_id": "336405612908-jghosvhln91d7837iph57qmagc4sdve7.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.zynergi.dynamiq.recipebinder",
+            "certificate_hash": "f8dc1cef77efee4181d63e366cbea29b725ec8f5"
+          }
+        },
+        {
           "client_id": "336405612908-39rth9phdka72k26j3njprehb32fggqv.apps.googleusercontent.com",
           "client_type": 3
         }

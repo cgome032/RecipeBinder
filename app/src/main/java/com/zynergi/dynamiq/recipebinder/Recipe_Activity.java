@@ -1,60 +1,139 @@
 package com.zynergi.dynamiq.recipebinder;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Source;
 import com.zynergi.dynamiq.recipebinder.Post.MyAdapter;
+import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 import com.zynergi.dynamiq.recipebinder.Post.StepsAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import static java.lang.Character.toUpperCase;
 
 public class Recipe_Activity extends AppCompatActivity {
+
+
+
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+
     private RecyclerView mRecyclerViewIngredients;
     private MyAdapter mAdapterIngredients;
     private RecyclerView.LayoutManager mLayoutManagerIngredients;
-
+    private static final String TAG = "firestore";
     private RecyclerView mRecyclerViewSteps;
     private StepsAdapter mAdapterSteps;
     private RecyclerView.LayoutManager mLayoutManagerSteps;
 
-    private ArrayList<String> ingredientList;
-    private ArrayList<String> stepList;
+    private List<String> ingredientList;
+    private List<String> stepList;
     private Context mContext;
+    TextView rname;
+    private static String recipeName;
+    private Map<String, Object> data;
+    public static Recipe recipe;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_);
-        TextView rname = findViewById(R.id.recipe_name);
-        rname.setText("Yeeet");
+
         mContext = getApplicationContext();
+        rname = findViewById(R.id.recipe_name);
         ingredientList = new ArrayList<>();
         stepList = new ArrayList<>();
-        ingredientList.add("beef");
-        ingredientList.add("cheese");
-        ingredientList.add("chicken");
-        ingredientList.add("shallots");
-
-        stepList.add("Boil that shit");
-        stepList.add("Please layer");
-
-        mRecyclerViewIngredients = findViewById(R.id.ingredient_list);
-        mLayoutManagerIngredients = new LinearLayoutManager(this);
-        mRecyclerViewIngredients.setHasFixedSize(true);
-        mRecyclerViewIngredients.setLayoutManager(mLayoutManagerIngredients);
-        mAdapterIngredients = new MyAdapter(ingredientList, mContext);
-        mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
 
 
+        DocumentReference docRef = db.collection("recipes").document("acfOtTxeAGMcKAcYWDip");
+        data = new HashMap<>();
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        recipeName = document.getData().get("name").toString();
+                        recipeName = recipeName.toUpperCase();
+                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                        rname.setText(recipeName);
+                        ingredientList = (List<String>) document.get("ingredients");
+                        stepList = (List<String>) document.get("steps");
+                        System.out.println("The ID:" + document.getId());
+                        if (ingredientList.isEmpty())
+                            System.out.println("ITS EMPTY");
+                        System.out.println("WHAT THE FUCK "+recipeName);
 
-        mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
-        mLayoutManagerSteps = new LinearLayoutManager(this);
-        mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
-        mAdapterSteps = new StepsAdapter(stepList, mContext);
-        mRecyclerViewSteps.setAdapter(mAdapterSteps);
+                        mRecyclerViewIngredients = findViewById(R.id.ingredient_list);
+                        mLayoutManagerIngredients = new LinearLayoutManager(getApplicationContext());
+                        mRecyclerViewIngredients.setHasFixedSize(true);
+                        mRecyclerViewIngredients.setLayoutManager(mLayoutManagerIngredients);
+                        mAdapterIngredients = new MyAdapter(ingredientList, mContext);
+                        mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
+
+
+
+                        mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
+                        mLayoutManagerSteps = new LinearLayoutManager(getApplicationContext());
+                        mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
+                        mAdapterSteps = new StepsAdapter(stepList, mContext);
+                        mRecyclerViewSteps.setAdapter(mAdapterSteps);
+
+
+
+
+                    } else {
+                        Log.d(TAG, "No such document");
+                    }
+                } else {
+                    Log.d(TAG, "get failed with ", task.getException());
+                }
+            }
+        });
+        /*
+        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+
+            if (task.isSuccessful()){
+                DocumentSnapshot documentSnapshot = task.getResult();
+                if (documentSnapshot != null){
+                    recipe = documentSnapshot.toObject(Recipe.class);
+                }
+            }
+
+            }
+        });
+        */
+
+
+
+
+//        System.out.println((String) data.get("name").toString());
+    //    ingredientList = recipe.getIngredients();
+//        stepList = recipe.getSteps();
+/*
+        for (int i = 0; i < stepList.size();i++)
+        {
+            System.out.println("This is an ingredient: " + i + stepList.get(i));
+        }
+*/
+
 
 
 

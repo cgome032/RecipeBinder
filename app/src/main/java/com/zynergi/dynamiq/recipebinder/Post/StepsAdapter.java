@@ -10,11 +10,12 @@ import android.widget.TextView;
 import com.zynergi.dynamiq.recipebinder.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder> {
 
 
-    ArrayList<String> mDataset;
+    List<String> mDataset;
     Context mContext;
 
 
@@ -34,7 +35,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
     // Provide a suitable constructor (depends on the kind of dataset)
 
-    public StepsAdapter(ArrayList<String> myDataset, Context context) {
+    public StepsAdapter(List<String> myDataset, Context context) {
 
         this.mDataset = myDataset;
         this.mContext = context;

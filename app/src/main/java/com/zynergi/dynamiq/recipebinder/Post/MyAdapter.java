@@ -10,10 +10,11 @@ import android.widget.TextView;
 import com.zynergi.dynamiq.recipebinder.R;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    ArrayList<String> mDataset;
+    List<String> mDataset;
     Context mContext;
 
 
@@ -33,11 +34,10 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     // Provide a suitable constructor (depends on the kind of dataset)
 
-    public MyAdapter(ArrayList<String> myDataset, Context context) {
+    public MyAdapter(List<String> myDataset, Context context) {
 
         this.mDataset = myDataset;
         this.mContext = context;
-        mDataset.add("sadfsadf");
     }
 
     // Create new views (invoked by the layout manager)

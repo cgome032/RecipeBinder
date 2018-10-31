@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Menu_activity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="96dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <Button
+            android:id="@+id/CreateRecipe"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="createRecipe"
+            android:text="@string/menu_create_recipe" />
+
+        <Button
+            android:id="@+id/ViewRecipes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="viewRecipe"
+            android:text="@string/menu_view_recipe" />
+    </LinearLayout>
+</android.support.constraint.ConstraintLayout>

@@ -79,6 +79,7 @@ public class LoginActivity extends AppCompatActivity {
                             Log.d(TAG, "signInWithEmail:success");
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(),"Success", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(LoginActivity.this, Menu_activity.class));
                         } else {
                             Log.w(TAG, "signInWithEmail:failure", task.getException());
                             Toast.makeText(LoginActivity.this, "Failed to Authenticate", Toast.LENGTH_SHORT).show();
@@ -120,4 +121,5 @@ public class LoginActivity extends AppCompatActivity {
             return false;
 
     }
+
 }

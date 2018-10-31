@@ -5,21 +5,60 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.zynergi.dynamiq.recipebinder.Post.Recipe;
+import com.zynergi.dynamiq.recipebinder.Post.MyAdapter;
+import com.zynergi.dynamiq.recipebinder.Post.StepsAdapter;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class Recipe_Activity extends AppCompatActivity {
+    private RecyclerView mRecyclerViewIngredients;
+    private MyAdapter mAdapterIngredients;
+    private RecyclerView.LayoutManager mLayoutManagerIngredients;
 
+    private RecyclerView mRecyclerViewSteps;
+    private StepsAdapter mAdapterSteps;
+    private RecyclerView.LayoutManager mLayoutManagerSteps;
+
+    private ArrayList<String> ingredientList;
+    private ArrayList<String> stepList;
+    private Context mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipe_);
+        TextView rname = findViewById(R.id.recipe_name);
+        rname.setText("Yeeet");
+        mContext = getApplicationContext();
+        ingredientList = new ArrayList<>();
+        stepList = new ArrayList<>();
+        ingredientList.add("beef");
+        ingredientList.add("cheese");
+        ingredientList.add("chicken");
+        ingredientList.add("shallots");
+
+        stepList.add("Boil that shit");
+        stepList.add("Please layer");
+
+        mRecyclerViewIngredients = findViewById(R.id.ingredient_list);
+        mLayoutManagerIngredients = new LinearLayoutManager(this);
+        mRecyclerViewIngredients.setHasFixedSize(true);
+        mRecyclerViewIngredients.setLayoutManager(mLayoutManagerIngredients);
+        mAdapterIngredients = new MyAdapter(ingredientList, mContext);
+        mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
+
+
+
+        mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
+        mLayoutManagerSteps = new LinearLayoutManager(this);
+        mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
+        mAdapterSteps = new StepsAdapter(stepList, mContext);
+        mRecyclerViewSteps.setAdapter(mAdapterSteps);
+
+
+
+        /*
 
         TextView Recipe_Name = findViewById(R.id.recipe_name);
 
@@ -37,7 +76,7 @@ public class Recipe_Activity extends AppCompatActivity {
         List<String> ing_list = recipe.getIngredients();
         List<String> step_list = recipe.getSteps();
 
-        IngredientAdapter Iadapter = new IngredientAdapter(ing_list);
+        StepsAdapter Iadapter = new StepsAdapter(ing_list);
         StepsAdapter Sadapter = new StepsAdapter(step_list);
 
         rvIngredients.setAdapter(Iadapter);
@@ -45,8 +84,9 @@ public class Recipe_Activity extends AppCompatActivity {
 
         rvIngredients.setLayoutManager(new LinearLayoutManager(this));
         rvSteps.setLayoutManager(new LinearLayoutManager(this));
+            */
     }
-
+/*
     public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> {
 
         private List<String> stepsList;
@@ -107,7 +147,7 @@ public class Recipe_Activity extends AppCompatActivity {
             return stepsList.size();
         }
     }
-    public class IngredientAdapter extends RecyclerView.Adapter<IngredientAdapter.ViewHolder> {
+    public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.ViewHolder> {
 
         private List<String> ingredientList;
 
@@ -126,7 +166,7 @@ public class Recipe_Activity extends AppCompatActivity {
             }
         }
             // Pass in the contact array into the constructor
-        public IngredientAdapter(List<String> ingredients) {
+        public StepsAdapter(List<String> ingredients) {
             ingredientList = ingredients;
         }
 
@@ -135,7 +175,7 @@ public class Recipe_Activity extends AppCompatActivity {
 
         // Usually involves inflating a layout from XML and returning the holder
         @Override
-        public IngredientAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public StepsAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             Context context = parent.getContext();
             LayoutInflater inflater = LayoutInflater.from(context);
 
@@ -149,7 +189,7 @@ public class Recipe_Activity extends AppCompatActivity {
 
         // Involves populating data into the item through holder
         @Override
-        public void onBindViewHolder(IngredientAdapter.ViewHolder viewHolder, int position) {
+        public void onBindViewHolder(StepsAdapter.ViewHolder viewHolder, int position) {
             // Get the data model based on position
             String ingredient = ingredientList.get(position);
 
@@ -169,4 +209,6 @@ public class Recipe_Activity extends AppCompatActivity {
     //Recipe name
     //Recipe Ingredient List
     //Recipe Instructions List
+*/
 }
+

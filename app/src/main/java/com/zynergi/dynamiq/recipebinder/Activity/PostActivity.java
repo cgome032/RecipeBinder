@@ -32,5 +32,6 @@ public class PostActivity extends AppCompatActivity {
         Intent intent = new Intent(this, CommentActivity.class);
         //passing the post instead of the comments for now not the most elegant solution but it works
         intent.putExtra("Post", post);
+        startActivity(intent);
     }
 }

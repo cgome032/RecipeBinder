@@ -1,5 +1,7 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
+import android.os.Parcelable;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

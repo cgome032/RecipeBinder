@@ -1,10 +1,12 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
+import java.io.Serializable;
+
 /**
  * Comment class will keep track of a specific comment made on a post identified by the postid member
  */
 
-public class Comment {
+public class Comment implements Serializable {
     private long uid; //id of the user posting comment
     private long postid; //id of the post that this is attached to
     private long id; //id of the comment

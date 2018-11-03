@@ -16,4 +16,8 @@
     <string name="submitRecipe">Submit</string>
     <string name="menu_create_recipe">Create Recipe</string>
     <string name="menu_view_recipe">View Recipe</string>
+    <string name="action_home">Home</string>
+    <string name="action_favorites">Favorites</string>
+    <string name="action_create_recipe">Create Recipe</string>
+    <string name="action_account">Account</string>
 </resources>

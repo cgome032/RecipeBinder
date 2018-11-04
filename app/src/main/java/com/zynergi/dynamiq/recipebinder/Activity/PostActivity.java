@@ -22,9 +22,9 @@ public class PostActivity extends AppCompatActivity {
 
     public void displayRecipe(View view) {
         //TODO: Integrate with recipe activity
-        Intent intent = new Intent(this, RecipeActivity.class);
+        /*Intent intent = new Intent(this, RecipeActivity.class);
         intent.putExtra("Recipe", post.getRecipe());
-        startActivity(intent);
+        startActivity(intent);*/
     }
 
     public void displayComments(View view) {

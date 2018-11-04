@@ -8,6 +8,10 @@
     tools:layout_editor_absoluteY="81dp">
 
 
+    <android.support.v7.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="449dp" />
+
     <Button
         android:id="@+id/button"
         android:layout_width="320dp"
@@ -43,4 +47,5 @@
         android:text="@{post.GetLikes()}"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
+
 </android.support.constraint.ConstraintLayout>

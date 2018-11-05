@@ -46,6 +46,7 @@
                     android:id="@+id/button3"
                     android:layout_width="192dp"
                     android:layout_height="match_parent"
+                    android:onClick="like"
                     android:text="@{post.getLikes()}" />
             </LinearLayout>
         </LinearLayout>

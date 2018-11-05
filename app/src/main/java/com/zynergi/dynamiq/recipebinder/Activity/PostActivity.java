@@ -34,4 +34,8 @@ public class PostActivity extends AppCompatActivity {
         intent.putExtra("Post", post);
         startActivity(intent);
     }
+
+    public void like(View view) {
+        post.setLikes(post.getLikes() + 1);
+    }
 }

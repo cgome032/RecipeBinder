@@ -31,7 +31,8 @@ public class createRecipeActivity extends AppCompatActivity {
     Recipe completedRecipe = new Recipe();
     ArrayList<String> steps;
     ArrayList<String> ingredients;
-    Map<String, Object> data1 = new HashMap<>();
+//    Map<String, Object> data1 = new HashMap<>();
+    Recipe recipeObject = new Recipe();
  //   DatabaseReference mDatabase;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 //    CollectionReference recipes = db.collection("recipes");
@@ -51,6 +52,7 @@ public class createRecipeActivity extends AppCompatActivity {
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
+        recipeObject.addIngredient(tmpIngredients);
         eIngredients.getText().clear();
 
     }
@@ -68,11 +70,10 @@ public class createRecipeActivity extends AppCompatActivity {
         String sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
     //    completedRecipe.setSteps(steps);
-        data1.put("name",sName);
-        data1.put("ingredients",ingredients);
-        data1.put("steps",steps);
+        recipeObject.setName(sName);
+        recipeObject.setSteps(steps);
         db.collection("recipes")
-                .add(data1)
+                .add(recipeObject)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {

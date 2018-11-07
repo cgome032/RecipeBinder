@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activity.CommentActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/commentRecycler"
+            android:layout_width="match_parent"
+            android:layout_height="239dp">
+
+        </android.support.v7.widget.RecyclerView>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:onClick="addComment"
+            android:text="@string/add_a_comment"
+            tools:layout_editor_absoluteX="52dp"
+            tools:layout_editor_absoluteY="270dp" />
+
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

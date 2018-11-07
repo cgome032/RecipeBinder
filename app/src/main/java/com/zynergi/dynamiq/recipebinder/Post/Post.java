@@ -1,5 +1,8 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +10,7 @@ import java.util.List;
  * Post will keep track of a post made by a user. This includes keeping track of the recipe, comments and number of likes
  */
 
-public class Post {
+public class Post implements Serializable {
     private long uid; //user id associated wit account making the post (made a long for now just a place holder we can talk about it later)
     private long id; //id of the post in the database
     private Recipe recipe;

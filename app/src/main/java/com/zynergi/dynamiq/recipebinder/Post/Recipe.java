@@ -1,9 +1,10 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Recipe {
+public class Recipe implements Serializable {
 
     // Ingredients list for Recipe
     private String name;

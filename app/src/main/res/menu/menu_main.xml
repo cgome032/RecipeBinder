@@ -6,21 +6,21 @@
         android:id="@+id/action_home"
         android:icon="@drawable/ic_action_home"
         android:title="@string/action_home"
-        app:showAsAction="always|withText"
+        app:showAsAction="ifRoom"
         tools:ignore="AlwaysShowAction"/>
     <item
         android:id="@+id/action_favorites"
         android:icon="@drawable/ic_action_favorite"
         android:title="@string/action_favorites"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_create_recipe"
         android:icon="@drawable/ic_action_recipe"
         android:title="@string/action_create_recipe"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/action_account"
         android:icon="@drawable/ic_action_account"
         android:title="@string/action_account"
-        app:showAsAction="always|withText" />
+        app:showAsAction="ifRoom" />
 </menu>

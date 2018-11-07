@@ -1,9 +1,9 @@
 package com.zynergi.dynamiq.recipebinder;
 
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.*;
@@ -16,6 +16,7 @@ public class Menu_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_activity);
+        setBottomNavigation();
     }
 
     public void createRecipe(View view) {
@@ -50,6 +51,8 @@ public class Menu_activity extends AppCompatActivity {
                         break;
 
                     case R.id.action_create_recipe:
+                        fragment = new createRecipeActivity();
+                        loadFragment(fragment);
                         Toast.makeText(Menu_activity.this, "Create Recipe", Toast.LENGTH_SHORT).show();
                         break;
 
@@ -63,7 +66,6 @@ public class Menu_activity extends AppCompatActivity {
 
     }
 
-    /*
     private void loadFragment(Fragment fragment) {
         // Loading fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
@@ -71,5 +73,4 @@ public class Menu_activity extends AppCompatActivity {
         transaction.addToBackStack(null);
         transaction.commit();
     }
-    */
 }

@@ -1,10 +1,14 @@
 package com.zynergi.dynamiq.recipebinder;
 
 import android.support.annotation.NonNull;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -25,7 +29,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
-public class createRecipeActivity extends AppCompatActivity {
+public class createRecipeActivity extends Fragment {
 
     private static final String TAG ="firestore";
     Recipe completedRecipe = new Recipe();
@@ -37,17 +41,21 @@ public class createRecipeActivity extends AppCompatActivity {
 //    CollectionReference recipes = db.collection("recipes");
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.activity_create_recipe, container, false);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
    //     mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
-        setContentView(R.layout.activity_create_recipe);
         steps = new ArrayList<>();
         ingredients = new ArrayList<>();
 
     }
 
     public void addIngredients(View view){
-        EditText eIngredients = (EditText) findViewById(R.id.editIngredients);
+        EditText eIngredients = (EditText) getView().findViewById(R.id.editIngredients);
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
@@ -56,7 +64,7 @@ public class createRecipeActivity extends AppCompatActivity {
     }
 
     public void addSteps(View view){
-        EditText eSteps = findViewById(R.id.editSteps);
+        EditText eSteps = getView().findViewById(R.id.editSteps);
         String tmpSteps = eSteps.getText().toString();
         steps.add(tmpSteps);
         eSteps.getText().clear();
@@ -64,7 +72,7 @@ public class createRecipeActivity extends AppCompatActivity {
     }
 
     public void submitRecipe(View view){
-        EditText eName = findViewById(R.id.editName);
+        EditText eName = getView().findViewById(R.id.editName);
         String sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
     //    completedRecipe.setSteps(steps);

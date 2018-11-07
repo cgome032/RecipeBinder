@@ -23,6 +23,7 @@
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.PostActivity" />
         <activity android:name=".Activity.CommentActivity" />
+        <activity android:name=".Activity.AddCommentActivity"></activity>
     </application>
 
 </manifest>

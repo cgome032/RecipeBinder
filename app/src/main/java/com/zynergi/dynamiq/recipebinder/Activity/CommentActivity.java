@@ -1,10 +1,12 @@
 package com.zynergi.dynamiq.recipebinder.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+//import android.view.View;
 import android.widget.TextView;
 
 import com.zynergi.dynamiq.recipebinder.Adapter.CommentAdapter;
@@ -37,4 +39,9 @@ public class CommentActivity extends AppCompatActivity {
         commentAdapter = new CommentAdapter(post, context);
         recyclerView.setAdapter(commentAdapter);
     }
+
+    /*public void addComment(View view) {
+        Intent intent = new Intent(this, AddCommentActivity.class);
+        startActivity(intent);
+    }*/
 }

@@ -24,6 +24,8 @@
         <activity android:name=".Activity.PostActivity" />
         <activity android:name=".Activity.CommentActivity" />
         <activity android:name=".Activity.AddCommentActivity"></activity>
+        <activity android:name=".Recipe_Activity" />
+        <activity android:name=".Menu_activity" />
     </application>
 
 </manifest>

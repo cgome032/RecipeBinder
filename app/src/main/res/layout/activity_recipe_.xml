@@ -4,51 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Recipe_Activity">
+    tools:context=".Activity.Recipe_Activity">
 
     <TextView
         android:id="@+id/recipe_name"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:fontFamily="cursive"
+        android:gravity="center"
         android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/ingredient_list"
+        app:layout_constraintBottom_toTopOf="@+id/ingredients_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/ingredients_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="16dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/ingredient_list"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/recipe_name" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/ingredient_list"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="75dp"
         android:layout_marginEnd="16dp"
         android:scrollbars="vertical"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recipe_steps"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:scrollbars="vertical"
-        android:textSize="12sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="14sp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toTopOf="@+id/steps_title"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ingredient_list"
+        app:layout_constraintTop_toBottomOf="@+id/ingredients_title" />
+
+    <TextView
+        android:id="@+id/steps_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/recipe_steps"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ingredient_list" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recipe_steps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:clipChildren="false"
+        android:scrollbars="vertical"
+        android:textSize="14sp"
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/steps_title"
         app:layout_constraintVertical_bias="0.0" />
 
 </android.support.constraint.ConstraintLayout>

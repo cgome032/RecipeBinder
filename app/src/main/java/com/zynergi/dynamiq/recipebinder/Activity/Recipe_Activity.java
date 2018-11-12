@@ -1,4 +1,4 @@
-package com.zynergi.dynamiq.recipebinder;
+package com.zynergi.dynamiq.recipebinder.Activity;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -19,6 +19,7 @@ import com.google.firebase.firestore.Source;
 import com.zynergi.dynamiq.recipebinder.Post.MyAdapter;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 import com.zynergi.dynamiq.recipebinder.Post.StepsAdapter;
+import com.zynergi.dynamiq.recipebinder.R;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -46,6 +47,8 @@ public class Recipe_Activity extends AppCompatActivity {
     private List<String> stepList;
     private Context mContext;
     TextView rname;
+    TextView ingredients_title;
+    TextView steps_title;
     private static String recipeName;
     private Map<String, Object> data;
     public static Recipe recipe;
@@ -56,12 +59,14 @@ public class Recipe_Activity extends AppCompatActivity {
 
         mContext = getApplicationContext();
         rname = findViewById(R.id.recipe_name);
-        ingredientList = new ArrayList<>();
-        stepList = new ArrayList<>();
+        steps_title = findViewById(R.id.steps_title);
+        ingredients_title = findViewById(R.id.ingredients_title);
+        ingredientList = new ArrayList<String>();
+        stepList = new ArrayList<String>();
 
 
         DocumentReference docRef = db.collection("recipes").document("acfOtTxeAGMcKAcYWDip");
-        data = new HashMap<>();
+//        data = new HashMap<>();
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
@@ -72,6 +77,8 @@ public class Recipe_Activity extends AppCompatActivity {
                         recipeName = recipeName.toUpperCase();
                         Log.d(TAG, "DocumentSnapshot data: " + document.getData());
                         rname.setText(recipeName);
+                        ingredients_title.setText("Ingredients:");
+                        steps_title.setText("Steps:");
                         ingredientList = (List<String>) document.get("ingredients");
                         stepList = (List<String>) document.get("steps");
                         System.out.println("The ID:" + document.getId());
@@ -86,17 +93,11 @@ public class Recipe_Activity extends AppCompatActivity {
                         mAdapterIngredients = new MyAdapter(ingredientList, mContext);
                         mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
 
-
-
                         mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
                         mLayoutManagerSteps = new LinearLayoutManager(getApplicationContext());
                         mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
                         mAdapterSteps = new StepsAdapter(stepList, mContext);
                         mRecyclerViewSteps.setAdapter(mAdapterSteps);
-
-
-
-
                     } else {
                         Log.d(TAG, "No such document");
                     }

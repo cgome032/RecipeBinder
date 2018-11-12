@@ -24,4 +24,6 @@
     <string name="action_favorites">Favorites</string>
     <string name="action_create_recipe">Create Recipe</string>
     <string name="action_account">Account</string>
+    <string name="enter_a_comment">Enter A Comment</string>
+    <string name="submit_comment">Submit Comment</string>
 </resources>

@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 //import android.view.View;
+import android.view.View;
 import android.widget.TextView;
 
 import com.zynergi.dynamiq.recipebinder.Adapter.CommentAdapter;
@@ -40,8 +41,9 @@ public class CommentActivity extends AppCompatActivity {
         recyclerView.setAdapter(commentAdapter);
     }
 
-    /*public void addComment(View view) {
+    public void addComment(View view) {
         Intent intent = new Intent(this, AddCommentActivity.class);
+        intent.putExtra("Post", post);
         startActivity(intent);
-    }*/
+    }
 }

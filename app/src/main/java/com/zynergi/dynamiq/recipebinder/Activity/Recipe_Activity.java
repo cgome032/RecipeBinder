@@ -31,8 +31,6 @@ import static java.lang.Character.toUpperCase;
 
 public class Recipe_Activity extends AppCompatActivity {
 
-
-
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
     private RecyclerView mRecyclerViewIngredients;
@@ -46,12 +44,13 @@ public class Recipe_Activity extends AppCompatActivity {
     private List<String> ingredientList;
     private List<String> stepList;
     private Context mContext;
-    TextView rname;
-    TextView ingredients_title;
-    TextView steps_title;
+    private TextView rname;
+    private TextView ingredients_title;
+    private TextView steps_title;
     private static String recipeName;
     private Map<String, Object> data;
     public static Recipe recipe;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,51 +60,52 @@ public class Recipe_Activity extends AppCompatActivity {
         rname = findViewById(R.id.recipe_name);
         steps_title = findViewById(R.id.steps_title);
         ingredients_title = findViewById(R.id.ingredients_title);
-        ingredientList = new ArrayList<String>();
-        stepList = new ArrayList<String>();
+        ingredientList = new ArrayList<>();
+        stepList = new ArrayList<>();
 
 
         DocumentReference docRef = db.collection("recipes").document("acfOtTxeAGMcKAcYWDip");
-//        data = new HashMap<>();
+        data = new HashMap<>();
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        recipeName = document.getData().get("name").toString();
-                        recipeName = recipeName.toUpperCase();
-                        Log.d(TAG, "DocumentSnapshot data: " + document.getData());
-                        rname.setText(recipeName);
-                        ingredients_title.setText("Ingredients:");
-                        steps_title.setText("Steps:");
-                        ingredientList = (List<String>) document.get("ingredients");
-                        stepList = (List<String>) document.get("steps");
-                        System.out.println("The ID:" + document.getId());
-                        if (ingredientList.isEmpty())
-                            System.out.println("ITS EMPTY");
-                        System.out.println("WHAT THE FUCK "+recipeName);
+            if (task.isSuccessful()) {
+                DocumentSnapshot document = task.getResult();
+                if (document.exists()) {
+                    recipeName = document.getData().get("name").toString();
+                    recipeName = recipeName.toUpperCase();
+                    Log.d(TAG, "DocumentSnapshot data: " + document.getData());
+                    rname.setText(recipeName);
+                    ingredients_title.setText("Ingredients:");
+                    steps_title.setText("Steps:");
+                    ingredientList = (List<String>) document.get("ingredients");
+                    stepList = (List<String>) document.get("steps");
+                    System.out.println("The ID:" + document.getId());
+                    if (ingredientList.isEmpty())
+                        System.out.println("ITS EMPTY");
+                    //System.out.println("WHAT THE FUCK "+recipeName);
 
-                        mRecyclerViewIngredients = findViewById(R.id.ingredient_list);
-                        mLayoutManagerIngredients = new LinearLayoutManager(getApplicationContext());
-                        mRecyclerViewIngredients.setHasFixedSize(true);
-                        mRecyclerViewIngredients.setLayoutManager(mLayoutManagerIngredients);
-                        mAdapterIngredients = new MyAdapter(ingredientList, mContext);
-                        mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
+                    mRecyclerViewIngredients = (RecyclerView) findViewById(R.id.ingredient_list);
+                    mLayoutManagerIngredients = new LinearLayoutManager(getApplicationContext());
+                    mRecyclerViewIngredients.setHasFixedSize(true);
+                    mRecyclerViewIngredients.setLayoutManager(mLayoutManagerIngredients);
+                    mAdapterIngredients = new MyAdapter(ingredientList, mContext);
+                    mRecyclerViewIngredients.setAdapter(mAdapterIngredients);
 
-                        mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
-                        mLayoutManagerSteps = new LinearLayoutManager(getApplicationContext());
-                        mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
-                        mAdapterSteps = new StepsAdapter(stepList, mContext);
-                        mRecyclerViewSteps.setAdapter(mAdapterSteps);
-                    } else {
-                        Log.d(TAG, "No such document");
-                    }
+                    mRecyclerViewSteps = (RecyclerView) findViewById(R.id.recipe_steps);
+                    mLayoutManagerSteps = new LinearLayoutManager(getApplicationContext());
+                    mRecyclerViewSteps.setLayoutManager(mLayoutManagerSteps);
+                    mAdapterSteps = new StepsAdapter(stepList, mContext);
+                    mRecyclerViewSteps.setAdapter(mAdapterSteps);
                 } else {
-                    Log.d(TAG, "get failed with ", task.getException());
+                    Log.d(TAG, "No such document");
                 }
+            } else {
+                Log.d(TAG, "get failed with ", task.getException());
             }
-        });
+            }
+        }
+    );
         /*
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

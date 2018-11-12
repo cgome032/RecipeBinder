@@ -28,7 +28,7 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.ingredient_name);
+            mTextView = v.findViewById(R.id.ingredient);
             }
     }
 
@@ -44,7 +44,8 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list, parent, false);
+
         return new MyViewHolder(view);
         /*
         TextView v = (TextView) LayoutInflater.from(parent.getContext())
@@ -61,8 +62,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
         // - replace the contents of the view with that element
         holder.mTextView.setText(mDataset.get(position));
         System.out.println("Word is: " + mDataset.get(position));
-
-
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -70,7 +69,6 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
     public int getItemCount() {
         if (mDataset != null) {
             System.out.println("I have this many: " + mDataset.size());
-
             return mDataset.size();
         }
         return 0;

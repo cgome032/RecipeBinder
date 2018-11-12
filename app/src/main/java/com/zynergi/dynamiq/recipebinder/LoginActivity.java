@@ -1,4 +1,4 @@
-package com.zynergi.dynamiq.recipebinder.Activity;
+package com.zynergi.dynamiq.recipebinder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -15,7 +15,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.zynergi.dynamiq.recipebinder.R;
+import com.zynergi.dynamiq.recipebinder.Activity.Menu_activity;
+import com.zynergi.dynamiq.recipebinder.Activity.SignUpActivity;
 
 public class LoginActivity extends AppCompatActivity {
 

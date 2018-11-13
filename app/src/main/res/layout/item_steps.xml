@@ -17,9 +17,8 @@
         android:layout_margin="8dp"
         android:background="?android:attr/selectableItemBackground">
 
-        <LinearLayout
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/Linear_Card_Step"
-            xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -28,6 +27,7 @@
                 android:id="@+id/step"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/shrek2"
                 android:textSize="16sp"
                 android:textStyle="bold" />
 

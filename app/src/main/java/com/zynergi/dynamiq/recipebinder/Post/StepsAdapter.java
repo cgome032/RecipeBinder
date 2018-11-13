@@ -29,7 +29,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
 
         public MyViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.ingredient_name);
+            mTextView = v.findViewById(R.id.step);
         }
     }
 
@@ -45,7 +45,7 @@ public class StepsAdapter extends RecyclerView.Adapter<StepsAdapter.MyViewHolder
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list,parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_steps, parent, false);
         return new MyViewHolder(view);
         /*
         TextView v = (TextView) LayoutInflater.from(parent.getContext())

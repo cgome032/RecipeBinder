@@ -9,23 +9,20 @@ import java.util.List;
  */
 
 public class Post implements Serializable {
+    private String id;  //should be able to store the id provided by firebase but not sure
     private Recipe recipe;
-    private byte[] image;
     private List<Comment> comments;
     private int likes;
 
 
-    public Post () {
+    public Post (String id) {
+        this.id = id;
         likes = 0;
         comments = new ArrayList<>();
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public byte[] getImage() {
-        return image;
+    public String getId() {
+        return id;
     }
 
     public void setComments(List<Comment> comments) {

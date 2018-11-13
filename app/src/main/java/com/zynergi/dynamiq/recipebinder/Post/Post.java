@@ -1,7 +1,5 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
-import android.os.Parcelable;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,27 +9,20 @@ import java.util.List;
  */
 
 public class Post implements Serializable {
-    private long uid; //user id associated wit account making the post (made a long for now just a place holder we can talk about it later)
-    private long id; //id of the post in the database
+    private String id;  //should be able to store the id provided by firebase but not sure
     private Recipe recipe;
-    private byte[] image;
     private List<Comment> comments;
     private int likes;
 
 
-    public Post (long uid, long id) {
-        this.uid = uid;
+    public Post (String id) {
         this.id = id;
         likes = 0;
         comments = new ArrayList<>();
     }
 
-    public void setImage(byte[] image) {
-        this.image = image;
-    }
-
-    public byte[] getImage() {
-        return image;
+    public String getId() {
+        return id;
     }
 
     public void setComments(List<Comment> comments) {
@@ -50,19 +41,15 @@ public class Post implements Serializable {
         return likes;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public long getUid() {
-        return uid;
-    }
-
     public Recipe getRecipe() {
         return recipe;
     }
 
     public void setRecipe(Recipe recipe) {
         this.recipe = recipe;
+    }
+
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 }

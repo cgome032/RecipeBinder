@@ -25,7 +25,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.zynergi.dynamiq.recipebinder.Adapter.RecipeFeedAdapter;
+import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeedViewFragment extends Fragment {
 
@@ -33,7 +37,7 @@ public class FeedViewFragment extends Fragment {
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-    private String[] mDataset;
+    private List<Post> mDataset;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -41,25 +45,31 @@ public class FeedViewFragment extends Fragment {
 
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
-        initDataset();
+        //initDataset();
+        mDataset = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            String id = "String" + i;
+            Post newAdd = new Post(id);
+            mDataset.add(newAdd);
+        }
+
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-
-        // BEGIN_INCLUDE(initializeRecyclerView)
         mRecyclerView = rootView.findViewById(R.id.recyclerView);
-        mRecyclerView.setHasFixedSize(true);
+        mAdapter = new RecipeFeedAdapter(getContext(), mDataset);
 
-        // LinearLayoutManager is used here, this will layout the elements in a similar fashion
-        // to the way ListView would layout elements. The RecyclerView.LayoutManager defines how
-        // elements are laid out.
         mLayoutManager = new LinearLayoutManager(getActivity());
         mRecyclerView.setLayoutManager(mLayoutManager);
 
-        mAdapter = new RecipeFeedAdapter(mDataset);
+
+        //mRecyclerView.setHasFixedSize(true);
+
+        //((LinearLayoutManager) mLayoutManager).setOrientation(LinearLayoutManager.VERTICAL);
+
+
 
         // Set CustomAdapter as the adapter for RecyclerView.
         mRecyclerView.setAdapter(mAdapter);
@@ -77,12 +87,12 @@ public class FeedViewFragment extends Fragment {
     /**
      * Generates Strings for RecyclerView's adapter. This data would usually come
      * from a local content provider or remote server.
-     */
+
     private void initDataset() {
         mDataset = new String[60];
         for (int i = 0; i < 60; i++) {
             mDataset[i] = "Element: " + i;
         }
 
-    }
+    }*/
 }

@@ -1,4 +1,4 @@
-package com.zynergi.dynamiq.recipebinder.Activity;
+package com.zynergi.dynamiq.recipebinder;
 
 import android.content.Context;
 import android.support.annotation.NonNull;

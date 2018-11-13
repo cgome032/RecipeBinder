@@ -19,19 +19,8 @@ public class Menu_activity extends AppCompatActivity {
         setBottomNavigation();
     }
 
-    public void createRecipe(View view) {
-        Intent myIntent = new Intent(this, createRecipeActivity.class);
-        startActivity(myIntent);
-    }
-
-    public void viewRecipe(View view) {
-        Intent myIntent = new Intent(this, Recipe_Activity.class);
-        startActivity(myIntent);
-    }
-
     private void setBottomNavigation() {
         BottomNavigationView bottomNavigationView = findViewById(R.id.navigationView);
-        //bottomNavigationView.setSelectedItemId(R.id.home_screen_fragment);
 
         bottomNavigationView.getMenu().findItem(R.id.action_home).setChecked(true);
 
@@ -53,7 +42,7 @@ public class Menu_activity extends AppCompatActivity {
                     case R.id.action_create_recipe:
                         fragment = new createRecipeActivity();
                         loadFragment(fragment);
-                        Toast.makeText(Menu_activity.this, "Create Recipe", Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(Menu_activity.this, "Create Recipe", Toast.LENGTH_SHORT).show();
                         break;
 
                     case R.id.action_account:
@@ -69,8 +58,8 @@ public class Menu_activity extends AppCompatActivity {
     private void loadFragment(Fragment fragment) {
         // Loading fragment
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        transaction.replace(R.id.frame_container, fragment).commit();
+        // transaction.addToBackStack(null);
+        // transaction.commit();
     }
 }

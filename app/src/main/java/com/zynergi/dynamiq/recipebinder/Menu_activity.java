@@ -10,13 +10,18 @@ import android.view.*;
 import android.support.design.widget.BottomNavigationView;
 import android.widget.Toast;
 
+import com.zynergi.dynamiq.recipebinder.RecipeFeed.FeedViewFragment;
+
 public class Menu_activity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu_activity);
+        Fragment fragment = new FeedViewFragment();
+        loadFragment(fragment);
         setBottomNavigation();
+
     }
 
     private void setBottomNavigation() {
@@ -30,8 +35,8 @@ public class Menu_activity extends AppCompatActivity {
                 Fragment fragment;
                 switch (item.getItemId()) {
                     case R.id.action_home:
-                        //fragment = new HomeScreenFragment();
-                        //loadFragment(fragment);
+                        fragment = new FeedViewFragment();
+                        loadFragment(fragment);
 
                         break;
 

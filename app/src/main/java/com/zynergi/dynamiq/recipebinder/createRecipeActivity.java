@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -43,7 +44,38 @@ public class createRecipeActivity extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.activity_create_recipe, container, false);
+        View rootView = inflater.inflate(R.layout.activity_create_recipe, container, false);
+
+        // Add Ingredients method
+        Button addIngredientButton = rootView.findViewById(R.id.btnIngred);
+        addIngredientButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addIngredients(v);
+            }
+        });
+
+        // Add steps method
+        Button addStepsButton = rootView.findViewById(R.id.btnSteps);
+        addStepsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                addSteps(v);
+            }
+        });
+
+
+        // Submit Recipe
+        Button submitRecipeButton = rootView.findViewById(R.id.btnRecipe);
+        submitRecipeButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                submitRecipe(v);
+            }
+        });
+
+        return rootView;
+
     }
 
     @Override
@@ -56,7 +88,7 @@ public class createRecipeActivity extends Fragment {
     }
 
     public void addIngredients(View view){
-        EditText eIngredients = (EditText) getView().findViewById(R.id.editIngredients);
+        EditText eIngredients = getView().findViewById(R.id.editIngredients);
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);

@@ -19,12 +19,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!-- <activity android:name=".LoginActivity"></activity> -->
         <activity android:name=".Activity.SignUpActivity" />
         <activity android:name=".Activity.PostActivity" />
         <activity android:name=".Activity.CommentActivity" />
-        <activity android:name=".Activity.AddCommentActivity"></activity>
-        <activity android:name=".Recipe_Activity" />
+        <activity android:name=".Activity.AddCommentActivity" />
         <activity android:name=".Menu_activity" />
     </application>
 

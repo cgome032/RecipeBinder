@@ -9,18 +9,36 @@ import java.util.List;
  */
 
 public class Post implements Serializable {
-    private String id;  //should be able to store the id provided by firebase but not sure
+    private String id;
     private Recipe recipe;
     private List<Comment> comments;
     private int likes;
 
 
-    public Post (String id) {
+    public Post() {
+        likes = 0;
+        comments = new ArrayList<>();
+    }
+
+    public Post(String id) {
         this.id = id;
         likes = 0;
         comments = new ArrayList<>();
     }
 
+    public Post(Recipe recipe) {
+        this.recipe = recipe;
+        likes = 0;
+        comments = new ArrayList<>();
+    }
+
+    //doing this to try to make a deep copy
+    public Post(Post post) {
+        this.id = post.getId();
+        this.likes = post.getLikes();
+        this.comments = post.getComments();
+        this.recipe = post.getRecipe();
+    }
     public String getId() {
         return id;
     }

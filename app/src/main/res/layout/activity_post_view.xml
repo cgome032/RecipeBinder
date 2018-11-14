@@ -50,8 +50,8 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="end"
                 android:onClick="like"
-                android:text="@{post.getLikes()}"
-                android:textSize="24sp" />
+                android:text="@{post.getLikes().toString()}"
+                android:textSize="24sp"/>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

@@ -57,7 +57,7 @@ public class AddCommentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(updated) {
-            DocumentReference documentReference = db.collection("posts").document(post.getId());
+            DocumentReference documentReference = db.collection(COLLECTION).document(post.getId());
             documentReference.update("comments", post.getComments())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override

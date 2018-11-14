@@ -4,11 +4,15 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.R;
 
 public class PostActivity extends AppCompatActivity {
+
+    private Button recipeName;
+    private Button likes;
 
     private Post post;
 
@@ -17,7 +21,10 @@ public class PostActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_view);
         //when passing intent put the post under the key "Post"
-        this.post = (Post) getIntent().getSerializableExtra("Post");
+        post = (Post) getIntent().getSerializableExtra("Post");
+
+        recipeName = findViewById(R.id.recipeNameButton);
+
     }
 
     public void displayRecipe(View view) {

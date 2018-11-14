@@ -43,9 +43,9 @@ public class RecipeFeedAdapter extends RecyclerView.Adapter<RecipeFeedAdapter.Vi
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        holder.recipeName.setText(mData.get(position).getId());
+        //holder.recipeName.setText(mData.get(position).getId());
 
-        //holder.recipeName.setText(mData.get(position).getRecipe().getName());
+        holder.recipeName.setText(mData.get(position).getRecipe().getName());
 
     }
 

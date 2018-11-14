@@ -20,7 +20,7 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <Button
-            android:id="@+id/button"
+            android:id="@+id/recipeNameButton"
             android:layout_width="385dp"
             android:layout_height="183dp"
             android:text="@{post.getRecipe().GetName()}"
@@ -41,11 +41,11 @@
                 android:textSize="24sp"/>
 
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/likesButton"
                 android:layout_width="192dp"
                 android:layout_height="match_parent"
                 android:onClick="like"
-                android:text="@{post.getLikes()}"
+                android:text="@{post.getLikes().toString()}"
                 android:textSize="24sp"/>
         </LinearLayout>
     </LinearLayout>

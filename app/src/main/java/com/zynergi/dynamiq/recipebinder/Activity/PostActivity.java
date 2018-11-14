@@ -1,5 +1,6 @@
 package com.zynergi.dynamiq.recipebinder.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -28,11 +29,11 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public void displayComments(View view) {
-        //TODO: Comment activity
         Intent intent = new Intent(this, CommentActivity.class);
         //passing the post instead of the comments for now not the most elegant solution but it works
         intent.putExtra("Post", post);
         startActivity(intent);
+        this.overridePendingTransition(0,0);
     }
 
     public void like(View view) {

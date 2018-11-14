@@ -1,14 +1,17 @@
 package com.zynergi.dynamiq.recipebinder.Adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zynergi.dynamiq.recipebinder.Post.MyAdapter;
 import com.zynergi.dynamiq.recipebinder.R;
+import com.zynergi.dynamiq.recipebinder.Recipe_Activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +20,7 @@ public class recipesAdapter extends RecyclerView.Adapter<recipesAdapter.MyViewHo
 
     List<String> myRecipes;
     Context mContext;
-
+    public static final String EXTRA_MESSAGE = "Passed Recipe";
 
     // Provide a reference to the views for each data item
     // Complex data items may need more than one view per item, and
@@ -25,11 +28,23 @@ public class recipesAdapter extends RecyclerView.Adapter<recipesAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         // each data item is just a string in this case
-        public TextView mTextView;
+        private TextView mTextView;
 
         public MyViewHolder(View v) {
             super(v);
-            mTextView = v.findViewById(R.id.ingredient);
+            mTextView = v.findViewById(R.id.recipeName);
+            /*
+            mTextView.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View view) {
+                    String nameofRecipe = mTextView.getText().toString();
+                    Intent intent = new Intent(mContext, Recipe_Activity.class);
+                    intent.putExtra(EXTRA_MESSAGE,nameofRecipe);
+                    mContext.startActivity(intent);
+                }
+            });
+            */
+
         }
     }
 
@@ -45,7 +60,7 @@ public class recipesAdapter extends RecyclerView.Adapter<recipesAdapter.MyViewHo
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.ingredient_list, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_my_recipe_card_view, parent, false);
 
         return new MyViewHolder(view);
         /*

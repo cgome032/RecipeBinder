@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.zynergi.dynamiq.recipebinder.Recipe_Activity;
 
@@ -26,6 +27,7 @@ public class myRecipeCardView extends AppCompatActivity {
                 String recipe = myRecipe.getText().toString();
                 intent.putExtra(EXTRA_STRING,recipe);
                 startActivity(intent);
+                Toast.makeText(getApplicationContext(),EXTRA_STRING, Toast.LENGTH_SHORT);
             }
         });
     }

@@ -103,6 +103,7 @@ public class FeedViewFragment extends Fragment {
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         List<DocumentSnapshot> recipes = task.getResult().getDocuments();
 
+                        System.out.println("Recipes pulled " + recipes.size());
                         for(int i = 0; i < recipes.size(); i++) {
                             String recipeName = recipes.get(i).getData().get("name").toString();
                             ArrayList<String> ingredients = (ArrayList<String>) recipes.get(i).get("ingredients");
@@ -117,6 +118,7 @@ public class FeedViewFragment extends Fragment {
                         }
                     }
                 });
+        System.out.println("Data set size " + mDataset.size());
 
     }
 }

@@ -16,6 +16,13 @@ public class Recipe implements Serializable {
         this.steps = new ArrayList<>();
     }
 
+    //trying to get the deep copy
+    public Recipe(Recipe recipe) {
+        this.name = recipe.getName();
+        this.ingredients = recipe.getIngredients();
+        this.steps = recipe.getSteps();
+    }
+
     public String getName(){return this.name;}
 
     public List<String> getIngredients() {

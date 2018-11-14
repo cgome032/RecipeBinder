@@ -32,6 +32,14 @@ public class Post implements Serializable {
         comments = new ArrayList<>();
     }
 
+    //doing this to try to make a deep copy
+    public Post(Post post) {
+        this.id = post.getId();
+        this.likes = post.getLikes();
+        this.comments = post.getComments();
+        this.recipe = post.getRecipe();
+    }
+
     public String getId() {
         return id;
     }

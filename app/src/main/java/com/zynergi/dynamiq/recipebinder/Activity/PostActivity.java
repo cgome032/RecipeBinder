@@ -24,8 +24,6 @@ public class PostActivity extends AppCompatActivity {
         //when passing intent put the post under the key "Post"
         post = (Post) getIntent().getSerializableExtra("Post");
 
-        recipeName = findViewById(R.id.recipeNameButton);
-
     }
 
     public void displayRecipe(View view) {

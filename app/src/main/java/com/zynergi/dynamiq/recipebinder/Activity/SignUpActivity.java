@@ -34,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity {
     private EditText textDescription;
     private Button btn;
     private Profile profileObj;
+    private FirebaseUser user;
+
 
     FirebaseFirestore db = FirebaseFirestore.getInstance();
 
@@ -59,16 +61,15 @@ public class SignUpActivity extends AppCompatActivity {
 
 
                 }
-        public void signUpUser(View view){
+        public void signUpUser(View view) {
             String email = textemail.getText().toString();
             String pass = textpass.getText().toString();
             String sName = textName.getText().toString();
-            String sDescription =textDescription.getText().toString();
+            String sDescription = textDescription.getText().toString();
             profileObj.setName(sName);
             profileObj.setDescription(sDescription);
 
-            if (!validEmailCheck(email))
-            {
+            if (!validEmailCheck(email)) {
                 Context context = getApplicationContext();
                 CharSequence text = "Invalid email";
                 Toast.makeText(context, text, Toast.LENGTH_SHORT).show();
@@ -82,8 +83,9 @@ public class SignUpActivity extends AppCompatActivity {
                             public void onComplete(@NonNull Task<AuthResult> task) {
                                 if (task.isSuccessful()) {
                                     Log.d(TAG, "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
+                                    user = mAuth.getCurrentUser();
                                     String id = user.getUid();
+                                    Toast.makeText(getApplicationContext(), "ici", Toast.LENGTH_SHORT).show();
                                     db.collection("profiles").document(id)
                                             .set(profileObj)
                                             .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -99,14 +101,13 @@ public class SignUpActivity extends AppCompatActivity {
                                                 }
                                             });
 
-
                                     Toast.makeText(SignUpActivity.this, "stored in database", Toast.LENGTH_SHORT)
                                             .show();
                                 } else {
                                     Log.w(TAG, "createUserwithEmail:failed", task.getException());
                                     Toast.makeText(SignUpActivity.this, "failed to create", Toast.LENGTH_SHORT)
                                             .show();
-                                    return;
+                                    //                                   return;
 
                                 }
 
@@ -114,10 +115,29 @@ public class SignUpActivity extends AppCompatActivity {
                         });
                 ;
             }
-            profileObj = null;
+//            user = mAuth.getCurrentUser(
+        /*
+            if (user != null) {
+                String id = user.getUid();
+                Toast.makeText(getApplicationContext(), "ici", Toast.LENGTH_SHORT).show();
+                db.collection("profiles").document(id)
+                        .set(profileObj)
+                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Log.d(TAG, "DocumentSnapshot successfully written!");
+                            }
+                        })
+                        .addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error writing Document");
+                            }
+                        });
 
             }
-
+            */
+        }
     boolean validEmailCheck (CharSequence email){
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches();
     } // validEmailCheck

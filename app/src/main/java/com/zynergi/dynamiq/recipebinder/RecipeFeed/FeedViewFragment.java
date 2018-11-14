@@ -53,7 +53,34 @@ public class FeedViewFragment extends Fragment {
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
         mDataset = new ArrayList<>();
-        initDataset();
+        //initDataset();
+        Recipe friedchicken = new Recipe();
+        friedchicken.setName("fried chicken");
+        mDataset.add(new Post(friedchicken));
+
+        Recipe Soup = new Recipe();
+        Soup.setName("Soup");
+        mDataset.add(new Post(Soup));
+
+        Recipe padthai = new Recipe();
+        padthai.setName("pad thai");
+        mDataset.add(new Post(padthai));
+
+        Recipe tokyoTea = new Recipe();
+        tokyoTea.setName("tokyo tea");
+        mDataset.add(new Post(tokyoTea));
+
+        Recipe pasta = new Recipe();
+        pasta.setName("pasta");
+        mDataset.add(new Post(pasta));
+
+        Recipe shrimpTaco = new Recipe();
+        shrimpTaco.setName("shrimp taco");
+        mDataset.add(new Post(shrimpTaco));
+
+        Recipe Taco = new Recipe();
+        Taco.setName("taco");
+        mDataset.add(new Post(Taco));
         /*for (int i = 0; i < 10; i++) {
             String id = "String" + i;
             Post newAdd = new Post(id);

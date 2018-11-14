@@ -23,7 +23,6 @@ public class PostActivity extends AppCompatActivity {
         setContentView(R.layout.activity_post_view);
         //when passing intent put the post under the key "Post"
         post = (Post) getIntent().getSerializableExtra("Post");
-
     }
 
     public void displayRecipe(View view) {

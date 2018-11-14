@@ -39,7 +39,6 @@ public class Post implements Serializable {
         this.comments = post.getComments();
         this.recipe = post.getRecipe();
     }
-
     public String getId() {
         return id;
     }

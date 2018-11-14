@@ -102,7 +102,6 @@ public class FeedViewFragment extends Fragment {
                     @Override
                     public void onComplete(@NonNull Task<QuerySnapshot> task) {
                         List<DocumentSnapshot> recipes = task.getResult().getDocuments();
-
                         System.out.println("Recipes pulled " + recipes.size());
                         for(int i = 0; i < recipes.size(); i++) {
                             String recipeName = recipes.get(i).getData().get("name").toString();

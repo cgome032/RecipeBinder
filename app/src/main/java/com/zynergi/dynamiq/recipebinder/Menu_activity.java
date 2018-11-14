@@ -52,6 +52,8 @@ public class Menu_activity extends AppCompatActivity {
 
                     case R.id.action_account:
                         Toast.makeText(Menu_activity.this, "Account", Toast.LENGTH_SHORT).show();
+                        fragment = new ProfileActivity();
+                        loadFragment(fragment);
                         break;
                 }
                 return true;

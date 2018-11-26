@@ -21,12 +21,16 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -40,11 +44,13 @@ import java.util.List;
 
 public class FeedViewFragment extends Fragment {
 
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseFirestore mFirebaseFirestore = FirebaseFirestore.getInstance();
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Post> mDataset;
+    private ArrayList<Recipe> mRecipes = new ArrayList<>();
+    private static View rootView;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -52,8 +58,7 @@ public class FeedViewFragment extends Fragment {
 
         // Initialize dataset, this data would usually come from a local content provider or
         // remote server.
-        mDataset = new ArrayList<>();
-        //initDataset();
+        /*
         Recipe friedchicken = new Recipe();
         friedchicken.setName("fried chicken");
         mDataset.add(new Post(friedchicken));
@@ -91,12 +96,28 @@ public class FeedViewFragment extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_feed, container, false);
-        mRecyclerView = rootView.findViewById(R.id.recyclerView);
-        mAdapter = new RecipeFeedAdapter(getContext(), mDataset);
+        mDataset = new ArrayList<>();
+        rootView = inflater.inflate(R.layout.fragment_feed, container, false);
 
-        mLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setLayoutManager(mLayoutManager);
+        initDataset(new FeedCallBack() {
+            @Override
+            public void onCallback(List<Recipe> recipes) {
+                mRecipes.addAll(recipes);
+                for(Recipe recipe: mRecipes) {
+                    Log.d("Recipe name: " , recipe.getName());
+                    mDataset.add(new Post(recipe));
+                }
+                Log.d("OC", "Recipes done");
+                mRecyclerView = rootView.findViewById(R.id.recyclerView);
+                mAdapter = new RecipeFeedAdapter(getContext(), mDataset);
+                mRecyclerView.setAdapter(mAdapter);
+
+                mLayoutManager = new LinearLayoutManager(getActivity());
+                mRecyclerView.setLayoutManager(mLayoutManager);
+                Log.d("OCV", "OCV");
+            }
+        });
+
 
 
         //mRecyclerView.setHasFixedSize(true);
@@ -106,7 +127,6 @@ public class FeedViewFragment extends Fragment {
 
 
         // Set CustomAdapter as the adapter for RecyclerView.
-        mRecyclerView.setAdapter(mAdapter);
 
 
         return rootView;
@@ -123,28 +143,19 @@ public class FeedViewFragment extends Fragment {
      * from a local content provider or remote server.
      * */
 
-    private void initDataset() {
-        db.collection("recipes").get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        List<DocumentSnapshot> recipes = task.getResult().getDocuments();
-                        System.out.println("Recipes pulled " + recipes.size());
-                        for(int i = 0; i < recipes.size(); i++) {
-                            String recipeName = recipes.get(i).getData().get("name").toString();
-                            ArrayList<String> ingredients = (ArrayList<String>) recipes.get(i).get("ingredients");
-                            ArrayList<String> steps = (ArrayList<String>) recipes.get(i).get("steps");
-
-                            Recipe recipe = new Recipe();
-                            recipe.setName(recipeName);
-                            recipe.setIngredients(ingredients);
-                            recipe.setSteps(steps);
-
-                            mDataset.add(new Post(recipe));
-                        }
-                    }
-                });
-        System.out.println("Data set size " + mDataset.size());
-
+    public interface FeedCallBack {
+        void onCallback(List<Recipe> recipes);
     }
+
+    private void initDataset(final FeedCallBack feedCallBack) {
+        CollectionReference mRecipes =mFirebaseFirestore.collection("recipes");
+        mRecipes.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+            @Override
+            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                List<Recipe> recipes = queryDocumentSnapshots.toObjects(Recipe.class);
+                feedCallBack.onCallback(recipes);
+            }
+        });
+    }
+
 }

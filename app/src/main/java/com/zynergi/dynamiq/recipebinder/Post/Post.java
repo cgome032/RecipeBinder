@@ -9,38 +9,44 @@ import java.util.List;
  */
 
 public class Post implements Serializable {
-    private String id;
+    private String recipeId;
     private Recipe recipe;
     private List<Comment> comments;
     private int likes;
 
 
     public Post() {
-        likes = 0;
-        comments = new ArrayList<>();
+        this.likes = 0;
+        this.comments = new ArrayList<>();
     }
 
     public Post(String id) {
-        this.id = id;
-        likes = 0;
-        comments = new ArrayList<>();
+        this.recipeId = id;
+        this.likes = 0;
+        this.comments = new ArrayList<>();
     }
 
     public Post(Recipe recipe) {
         this.recipe = recipe;
-        likes = 0;
-        comments = new ArrayList<>();
+        this.likes = 0;
+        this.comments = new ArrayList<>();
+    }
+
+    public Post(Recipe recipe, String recipeId) {
+        this.recipe = recipe;
+        this.recipeId = recipeId;
+        this.comments = new ArrayList<>();
     }
 
     //doing this to try to make a deep copy
     public Post(Post post) {
-        this.id = post.getId();
+        this.recipeId = post.getRecipeId();
         this.likes = post.getLikes();
         this.comments = post.getComments();
         this.recipe = post.getRecipe();
     }
-    public String getId() {
-        return id;
+    public String getRecipeId() {
+        return recipeId;
     }
 
     public void setComments(List<Comment> comments) {

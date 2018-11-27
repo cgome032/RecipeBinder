@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 
 import java.lang.reflect.Array;
@@ -106,6 +107,7 @@ public class createRecipeActivity extends Fragment {
     }
 
     public void submitRecipe(View view){
+        //TODO : CREATE POSTS ALONG WITH RECIPES
         EditText eName = getView().findViewById(R.id.editName);
         String sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
@@ -118,6 +120,20 @@ public class createRecipeActivity extends Fragment {
                     @Override
                     public void onSuccess(DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                        Post post = new Post(recipeObject, documentReference.getId());
+
+                        db.collection("posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference1) {
+                                Log.d(TAG, "Post added with id " + documentReference1.getId());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

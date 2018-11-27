@@ -50,6 +50,7 @@ public class Recipe_Activity extends AppCompatActivity {
     private static String recipeName;
     private Map<String, Object> data;
     public static Recipe recipe;
+    private String documentId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,9 +63,10 @@ public class Recipe_Activity extends AppCompatActivity {
         ingredients_title = findViewById(R.id.ingredients_title);
         ingredientList = new ArrayList<>();
         stepList = new ArrayList<>();
+        documentId = (String) getIntent().getSerializableExtra("RecipeId");
 
 
-        DocumentReference docRef = db.collection("recipes").document("acfOtTxeAGMcKAcYWDip");
+        DocumentReference docRef = db.collection("recipes").document(documentId);
         data = new HashMap<>();
         docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override

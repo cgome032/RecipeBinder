@@ -17,8 +17,6 @@ import com.zynergi.dynamiq.recipebinder.Post.Comment;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.R;
 
-import java.util.List;
-
 public class AddCommentActivity extends AppCompatActivity {
 
     private static final String COLLECTION = "posts";
@@ -57,18 +55,18 @@ public class AddCommentActivity extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         if(updated) {
-            DocumentReference documentReference = db.collection(COLLECTION).document(post.getId());
+            DocumentReference documentReference = db.collection(COLLECTION).document(post.getRecipeId());
             documentReference.update("comments", post.getComments())
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void aVoid) {
-                            Log.d(TAG, "Post with id" + post.getId() + " comments updated");
+                            Log.d(TAG, "Post with id" + post.getRecipeId() + " comments updated");
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Log.w(TAG, "Error editing post " + post.getId());
+                            Log.w(TAG, "Error editing post " + post.getRecipeId());
                         }
                     });
 

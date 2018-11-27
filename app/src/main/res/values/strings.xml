@@ -28,4 +28,5 @@
     <string name="submit_comment">Submit Comment</string>
     <string name="name_String">Enter your name</string>
     <string name="description_String">Describe: yourself, what you cook, diet, etc</string>
+    <string name="textview">TextView</string>
 </resources>

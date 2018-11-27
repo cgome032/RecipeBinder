@@ -17,7 +17,6 @@
 package com.zynergi.dynamiq.recipebinder.RecipeFeed;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -26,17 +25,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
 import com.zynergi.dynamiq.recipebinder.Adapter.RecipeFeedAdapter;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
-import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 import com.zynergi.dynamiq.recipebinder.R;
 
 import java.util.ArrayList;
@@ -49,7 +43,7 @@ public class FeedViewFragment extends Fragment {
     private RecyclerView.Adapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
     private List<Post> mDataset;
-    private ArrayList<Recipe> mRecipes = new ArrayList<>();
+    private ArrayList<Post> mPosts = new ArrayList<Post>();
     private static View rootView;
 
     @Override
@@ -101,11 +95,11 @@ public class FeedViewFragment extends Fragment {
 
         initDataset(new FeedCallBack() {
             @Override
-            public void onCallback(List<Recipe> recipes) {
-                mRecipes.addAll(recipes);
-                for(Recipe recipe: mRecipes) {
-                    Log.d("Recipe name: " , recipe.getName());
-                    mDataset.add(new Post(recipe));
+            public void onCallback(List<Post> posts) {
+                mPosts.addAll(posts);
+                for(Post post: mPosts) {
+                    Log.d("Recipe name: ", post.getRecipe().getName());
+                    mDataset.add(post);
                 }
                 Log.d("OC", "Recipes done");
                 mRecyclerView = rootView.findViewById(R.id.recyclerView);
@@ -144,16 +138,16 @@ public class FeedViewFragment extends Fragment {
      * */
 
     public interface FeedCallBack {
-        void onCallback(List<Recipe> recipes);
+        void onCallback(List<Post> posts);
     }
 
     private void initDataset(final FeedCallBack feedCallBack) {
-        CollectionReference mRecipes =mFirebaseFirestore.collection("recipes");
+        CollectionReference mRecipes =mFirebaseFirestore.collection("posts");
         mRecipes.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                List<Recipe> recipes = queryDocumentSnapshots.toObjects(Recipe.class);
-                feedCallBack.onCallback(recipes);
+                List<Post> posts = queryDocumentSnapshots.toObjects(Post.class);
+                feedCallBack.onCallback(posts);
             }
         });
     }

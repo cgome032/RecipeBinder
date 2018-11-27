@@ -22,6 +22,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 
 import java.lang.reflect.Array;
@@ -92,7 +93,6 @@ public class createRecipeActivity extends Fragment {
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
-        recipeObject.addIngredient(tmpIngredients);
         eIngredients.getText().clear();
 
     }
@@ -106,18 +106,38 @@ public class createRecipeActivity extends Fragment {
     }
 
     public void submitRecipe(View view){
+        //TODO : CREATE POSTS ALONG WITH RECIPES
         EditText eName = getView().findViewById(R.id.editName);
         String sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
     //    completedRecipe.setSteps(steps);
         recipeObject.setName(sName);
         recipeObject.setSteps(steps);
+        recipeObject.setIngredients(ingredients);
         db.collection("recipes")
                 .add(recipeObject)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(final DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+
+                        Post post = new Post(recipeObject, documentReference.getId());
+
+                        db.collection("posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            @Override
+                            public void onSuccess(DocumentReference documentReference1) {
+                                Log.d(TAG, "Post added with id " + documentReference1.getId());
+                                db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                Log.w(TAG, "Error adding document", e);
+                            }
+                        });
+                        steps.clear();
+                        ingredients.clear();
+                        Log.d(TAG, "Cleared lists");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -126,8 +146,6 @@ public class createRecipeActivity extends Fragment {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
-        steps.clear();
-        ingredients.clear();
 
     }
 /*

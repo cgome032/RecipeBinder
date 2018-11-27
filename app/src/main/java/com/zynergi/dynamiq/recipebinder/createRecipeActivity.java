@@ -93,7 +93,6 @@ public class createRecipeActivity extends Fragment {
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
-        recipeObject.addIngredient(tmpIngredients);
         eIngredients.getText().clear();
 
     }
@@ -114,11 +113,12 @@ public class createRecipeActivity extends Fragment {
     //    completedRecipe.setSteps(steps);
         recipeObject.setName(sName);
         recipeObject.setSteps(steps);
+        recipeObject.setIngredients(ingredients);
         db.collection("recipes")
                 .add(recipeObject)
                 .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                     @Override
-                    public void onSuccess(DocumentReference documentReference) {
+                    public void onSuccess(final DocumentReference documentReference) {
                         Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
                         Post post = new Post(recipeObject, documentReference.getId());
@@ -127,6 +127,7 @@ public class createRecipeActivity extends Fragment {
                             @Override
                             public void onSuccess(DocumentReference documentReference1) {
                                 Log.d(TAG, "Post added with id " + documentReference1.getId());
+                                db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
@@ -134,6 +135,9 @@ public class createRecipeActivity extends Fragment {
                                 Log.w(TAG, "Error adding document", e);
                             }
                         });
+                        steps.clear();
+                        ingredients.clear();
+                        Log.d(TAG, "Cleared lists");
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {
@@ -142,8 +146,6 @@ public class createRecipeActivity extends Fragment {
                         Log.w(TAG, "Error adding document", e);
                     }
                 });
-        steps.clear();
-        ingredients.clear();
 
     }
 /*

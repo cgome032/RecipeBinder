@@ -8,6 +8,7 @@ public class Recipe implements Serializable {
 
     // Ingredients list for Recipe
     private String name;
+    private String postID;
     private List<String> ingredients;
     private List<String> steps;
 
@@ -25,12 +26,18 @@ public class Recipe implements Serializable {
 
     public String getName(){return this.name;}
 
+    public String getPostID(){return this.postID;}
+
     public List<String> getIngredients() {
         return this.ingredients;
     }
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public void setPostID(String mpostID){
+        this.postID = mpostID;
     }
 
     public void setIngredients(ArrayList<String> ingredients) {

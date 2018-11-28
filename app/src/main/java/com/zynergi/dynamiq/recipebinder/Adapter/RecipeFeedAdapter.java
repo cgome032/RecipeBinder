@@ -56,6 +56,7 @@ public class RecipeFeedAdapter extends RecyclerView.Adapter<RecipeFeedAdapter.Vi
                 intent.putExtra("Post", mData.get(position));
                 intent.putExtra("RecipeName", mData.get(position).getRecipe().getName());
                 intent.putExtra("RecipeId", mData.get(position).getRecipeId());
+                Log.d("FeedAdapter", "Recipe Id " + mData.get(position).getRecipeId());
                 mContext.startActivity(intent);
             }
         });

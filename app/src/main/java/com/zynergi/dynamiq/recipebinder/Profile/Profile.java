@@ -45,5 +45,18 @@ public class Profile {
 
     public void addRecipeName(String recipeName) { this.recipeNames.add(recipeName); }
 
-    public void addFavoriteRecipe(String favoriteName) { this.favoriteRecipes.add(favoriteName); }
+    public void addFavoriteRecipe(String favoriteName) {
+
+        boolean repeat = false;
+
+        for(int i = 0; i < favoriteRecipes.size(); i++) {
+            if(favoriteName.equals(favoriteRecipes.get(i))) {
+                repeat = true;
+            }
+        }
+
+        if(!repeat) {
+            this.favoriteRecipes.add(favoriteName);
+        }
+    }
 }

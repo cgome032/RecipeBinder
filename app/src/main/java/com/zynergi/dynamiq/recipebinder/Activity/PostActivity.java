@@ -6,8 +6,13 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
+import com.zynergi.dynamiq.recipebinder.Profile.Profile;
 import com.zynergi.dynamiq.recipebinder.R;
 import com.zynergi.dynamiq.recipebinder.Recipe_Activity;
 
@@ -47,8 +52,23 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public void favorite(View view) {
-        //post.setLikes(post.getLikes() + 1);
 
+        FirebaseAuth auth = FirebaseAuth.getInstance();
+
+        final String uid = auth.getCurrentUser().getUid();
+
+        DocumentReference documentReference = db.collection("profiles").document(uid);
+
+        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                Profile currentUser = documentSnapshot.toObject(Profile.class);
+
+                currentUser.addFavoriteRecipe(post.getRecipe().getName());
+
+                db.collection("profiles").document(uid).update("favorite",currentUser.getFavoriteRecipes());
+            }
+        });
 
     }
 }

@@ -28,7 +28,6 @@
         android:onClick="editDescription"
         android:text="@string/editDesc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="nameTxt"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/descriptionTxt" />
 

@@ -28,4 +28,7 @@
     <string name="submit_comment">Submit Comment</string>
     <string name="name_String">Enter your name</string>
     <string name="description_String">Describe: yourself, what you cook, diet, etc</string>
+    <string name="search_text">Search Ingredients</string>
+    <string name="search_button">Find</string>
+    <string name="search_hint">Enter an ingredient to search</string>
 </resources>

@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.common.util.Strings;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
@@ -56,21 +57,51 @@ public class FavoritesFragment extends Fragment {
     private FirebaseAuth user = FirebaseAuth.getInstance();
     private String uid = user.getCurrentUser().getUid();
     private Context context = this.getContext();
+    private List<Post> mDataset;
+    private ArrayList<Post> mPosts = new ArrayList<>();
+    private static View rootView;
 
 
     @Nullable
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        Log.d("OnCreate", "here");
         super.onCreate(savedInstanceState);
 
     }
 
     public View onCreateView(final LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        final View view = inflater.inflate(R.layout.fragment_feed, container, false);
+        mDataset = new ArrayList<>();
+        rootView = inflater.inflate(R.layout.fragment_feed, container, false);
+
+        Log.d("Before onSuccess", "Here");
+
+        initDataset(new FeedCallBack() {
+            @Override
+            public void onCallBack(List<Post> posts) {
+                mPosts.addAll(posts);
+
+                mRecyclerView = rootView.findViewById(R.id.recyclerView);
+                mAdapter = new RecipeFeedAdapter(getContext(), posts);
+                mRecyclerView.setHasFixedSize(true);
+                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                mRecyclerView.setAdapter(mAdapter);
 
 
-        DocumentReference documentReference = db.collection("profiles").document(uid);
-        documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+
+            }
+        });
+
+        return rootView;
+    }
+
+    public interface FeedCallBack {
+        void onCallBack(List<Post> posts);
+    }
+
+    private void initDataset(final FeedCallBack feedCallBack) {
+        DocumentReference mDocument = db.collection("profiles").document(uid);
+        mDocument.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 Profile profile = documentSnapshot.toObject(Profile.class);
@@ -80,22 +111,16 @@ public class FavoritesFragment extends Fragment {
 
                 String size = new Integer(favorites.size()).toString();
 
-                Log.d("size", size);
+                Log.d("Posts size", size);
 
                 for (int i = 0; i < favorites.size(); i++) {
                     Post post = new Post(favorites.get(i));
                     posts.add(post);
                 }
+                feedCallBack.onCallBack(posts);
 
-                mAdapter = new RecipeFeedAdapter(context, posts);
-                mRecyclerView = view.findViewById(R.id.recyclerView);
-                mRecyclerView.setHasFixedSize(true);
-                mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                mRecyclerView.setAdapter(mAdapter);
             }
         });
-
-        return view;
     }
 
 }

@@ -35,7 +35,7 @@ public class RecipeFeedAdapter extends RecyclerView.Adapter<RecipeFeedAdapter.Vi
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View v;
-        v = LayoutInflater.from(mContext).inflate(R.layout.feedcard, parent, false);
+        v = LayoutInflater.from(parent.getContext()).inflate(R.layout.feedcard, parent, false);
         ViewHolder vHolder = new ViewHolder(v);
 
 
@@ -46,7 +46,7 @@ public class RecipeFeedAdapter extends RecyclerView.Adapter<RecipeFeedAdapter.Vi
     public void onBindViewHolder(ViewHolder holder, final int position) {
         //holder.recipeName.setText(mData.get(position).getRecipeId());
 
-        holder.cardText.setText(mData.get(position).getRecipe().getName());
+        holder.cardText.setText(mData.get(position).getRecipeId());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,36 +78,6 @@ public class RecipeFeedAdapter extends RecyclerView.Adapter<RecipeFeedAdapter.Vi
         */
         public ViewHolder(View itemView) {
             super(itemView);
-
-           /* recipeName = (Button) itemView.findViewById(R.id.recipeButton);
-            comments = (Button) itemView.findViewById(R.id.commentButton);
-            favorite = (Button) itemView.findViewById(R.id.favoriteButton);*/
-
-            /*itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Log.d("View Name :", view.toString());
-                    switch (view.getId()) {
-
-                        case R.id.recipeButton :
-                            ((PostActivity)view.getContext()).displayRecipe(view);
-                            break;
-
-                        case R.id.commentButton :
-                            //TODO switch this thing
-                            ((PostActivity)view.getContext()).displayRecipe(view);
-                            break;
-
-                        case R.id.favoriteButton :
-                            //TODO switch this thing
-                            ((PostActivity)view.getContext()).displayRecipe(view);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-            });*/
 
         }
 

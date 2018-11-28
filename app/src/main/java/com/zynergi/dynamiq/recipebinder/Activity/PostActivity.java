@@ -66,7 +66,7 @@ public class PostActivity extends AppCompatActivity {
 
                 currentUser.addFavoriteRecipe(post.getRecipe().getName());
 
-                db.collection("profiles").document(uid).update("favorite",currentUser.getFavoriteRecipes());
+                db.collection("profiles").document(uid).update("favoriteRecipes",currentUser.getFavoriteRecipes());
             }
         });
 

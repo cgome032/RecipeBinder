@@ -41,7 +41,7 @@ public class Menu_activity extends AppCompatActivity {
                         break;
 
                     case R.id.action_favorites:
-                        fragment = new FeedViewFragment();
+                        fragment = new FavoritesFragment();
                         loadFragment(fragment);
                         Toast.makeText(Menu_activity.this, "Favorites", Toast.LENGTH_SHORT).show();
                         break;

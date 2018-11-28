@@ -32,6 +32,7 @@
     <string name="search_text">Search Ingredients</string>
     <string name="search_button">Find</string>
     <string name="search_hint">Enter an ingredient to search</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="editDesc">Submit your new Description</string>
     <string name="signout">Sign Out</string>
 </resources>

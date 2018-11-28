@@ -7,10 +7,18 @@ import java.io.Serializable;
  */
 
 public class Comment implements Serializable {
+    private String postId;
     private String comment;
 
-    public Comment(String  comment) {
+    public Comment() {}
+
+    public Comment(String postId, String comment) {
+        this.postId = postId;
         this.comment = comment;
+    }
+
+    public String getPostId() {
+        return this.postId;
     }
 
     public String getComment() {

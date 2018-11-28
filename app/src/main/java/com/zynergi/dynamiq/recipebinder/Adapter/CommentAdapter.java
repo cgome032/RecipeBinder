@@ -7,13 +7,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.zynergi.dynamiq.recipebinder.Post.Comment;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.R;
 
+import java.util.List;
+
 public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentViewHolder> {
 
-    Post post;
     Context context;
+    List<Comment> comments;
 
 
     class CommentViewHolder extends RecyclerView.ViewHolder {
@@ -25,9 +28,9 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
         }
     }
 
-    public CommentAdapter(Post post, Context context) {
-        this.post = post;
+    public CommentAdapter(Context context, List<Comment> comments) {
         this.context = context;
+        this.comments = comments;
     }
 
     @Override
@@ -37,14 +40,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
     }
 
     @Override
-    public void onBindViewHolder(CommentViewHolder viewHolder, int position) {
-        viewHolder.textView.setText(post.getComments().get(position).getComment());
+    public void onBindViewHolder(CommentViewHolder viewHolder, final int position) {
+        viewHolder.textView.setText(comments.get(position).getComment());
     }
 
     @Override
     public int getItemCount() {
-        if(post.getComments() != null) {
-            return post.getComments().size();
+        if(comments != null) {
+            return comments.size();
         }
 
         return 0;

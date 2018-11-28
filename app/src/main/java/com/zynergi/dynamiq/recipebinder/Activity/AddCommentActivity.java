@@ -46,13 +46,27 @@ public class AddCommentActivity extends AppCompatActivity {
             return;
         }
 
-        Comment comment= new Comment(commentText);
+        Comment comment = new Comment(post.getRecipe().getPostID(), commentText);
+        editText.setText("");
 
         post.addComment(comment);
+
+        db.collection("comments").add(comment).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+            @Override
+            public void onSuccess(DocumentReference documentReference) {
+                Log.d("Comments: ", "added comment with id " + documentReference.getId());
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.d("Comments: ", "failed to upload comment");
+            }
+        });
+
         updated = true;
     }
 
-    @Override
+    /*@Override
     public void onBackPressed() {
         if(updated) {
             DocumentReference documentReference = db.collection(COLLECTION).document(post.getRecipeId());
@@ -71,6 +85,6 @@ public class AddCommentActivity extends AppCompatActivity {
                     });
 
         }
-    }
+    }*/
 
 }

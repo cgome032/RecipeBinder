@@ -18,6 +18,7 @@ public class PostActivity extends AppCompatActivity {
     private Post post;
     private Button recipeButton;
     private String recipeName;
+    private String recipeId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +27,12 @@ public class PostActivity extends AppCompatActivity {
         //when passing intent put the post under the key "Post"
         post = (Post) getIntent().getSerializableExtra("Post");
         recipeName = (String) getIntent().getSerializableExtra("RecipeName");
+        recipeId = (String) getIntent().getSerializableExtra("RecipeId");
         recipeButton = findViewById(R.id.recipeButton);
         recipeButton.setText(recipeName);
     }
 
     public void displayRecipe(View view) {
-        //TODO: Integrate with recipe activity
         Intent intent = new Intent(this, Recipe_Activity.class);
         intent.putExtra("RecipeId", post.getRecipeId());
         startActivity(intent);
@@ -40,7 +41,8 @@ public class PostActivity extends AppCompatActivity {
     public void displayComments(View view) {
         Intent intent = new Intent(this, CommentActivity.class);
         //passing the post instead of the comments for now not the most elegant solution but it works
-        intent.putExtra("Post", post);
+        intent.putExtra("PostToComment", post);
+        intent.putExtra("RecipeId", recipeId);
         startActivity(intent);
     }
 

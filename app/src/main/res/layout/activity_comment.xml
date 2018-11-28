@@ -6,27 +6,38 @@
     android:layout_height="match_parent"
     tools:context=".Activity.CommentActivity">
 
-    <LinearLayout
+    <EditText
+        android:id="@+id/addCommentEditText"
+        android:layout_width="match_parent"
+        android:layout_height="47dp"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="@string/add_a_comment"
+        android:inputType="textPersonName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
+
+    <Button
+        android:id="@+id/addCommentButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical">
+        android:layout_marginTop="8dp"
+        android:onClick="addComment"
+        android:text="@string/add_a_comment"
+        app:layout_constraintTop_toBottomOf="@+id/addCommentEditText"
+        tools:layout_editor_absoluteX="52dp" />
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/commentRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/commentRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/addCommentButton"
+        app:layout_constraintVertical_bias=".10">
 
-        </android.support.v7.widget.RecyclerView>
+    </android.support.v7.widget.RecyclerView>
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:onClick="addComment"
-            android:text="@string/add_a_comment"
-            tools:layout_editor_absoluteX="52dp"
-            tools:layout_editor_absoluteY="270dp" />
-
-    </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

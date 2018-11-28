@@ -1,16 +1,20 @@
 package com.zynergi.dynamiq.recipebinder;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,6 +30,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.zynergi.dynamiq.recipebinder.Adapter.createRecipeAdapter;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
 import com.zynergi.dynamiq.recipebinder.Profile.Profile;
@@ -56,6 +61,15 @@ public class createRecipeActivity extends Fragment {
     private String postUid;
     private String recipe;
     private List<String> postUIDs;
+    private String recipeId;
+    private RecyclerView IngredientView;
+    private createRecipeAdapter IngredientAdapter;
+    private RecyclerView.LayoutManager layoutManager1;
+    private Context context;
+    private RecyclerView StepsView;
+    private createRecipeAdapter StepsAdapter;
+    private RecyclerView.LayoutManager layoutManager2;
+    TextView commentsView;
 
 //    CollectionReference recipes = db.collection("recipes");
 
@@ -64,6 +78,22 @@ public class createRecipeActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.activity_create_recipe, container, false);
+
+        IngredientView = rootView.findViewById(R.id.IngredientsRecycler);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(context);
+        IngredientView.setHasFixedSize(true);
+        IngredientView.setLayoutManager(layoutManager);
+        IngredientAdapter = new createRecipeAdapter(context, ingredients);
+        IngredientView.setAdapter(IngredientAdapter);
+
+        StepsView = rootView.findViewById(R.id.StepsRecycler);
+        RecyclerView.LayoutManager layoutManager2 = new LinearLayoutManager(context);
+        StepsView.setHasFixedSize(true);
+        StepsView.setLayoutManager(layoutManager2);
+        StepsAdapter = new createRecipeAdapter(context, steps);
+        StepsView.setAdapter(IngredientAdapter);
+
+
 
         // Add Ingredients method
         Button addIngredientButton = rootView.findViewById(R.id.btnIngred);
@@ -119,6 +149,11 @@ public class createRecipeActivity extends Fragment {
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
         eIngredients.getText().clear();
+        createRecipeAdapter mAdapter = new createRecipeAdapter(context, ingredients);
+        //mRecyclerView = view.findViewById(R.id.recyclerView);
+        IngredientView.setHasFixedSize(true);
+        IngredientView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        IngredientView.setAdapter(mAdapter);
 
     }
 
@@ -126,12 +161,16 @@ public class createRecipeActivity extends Fragment {
         String tmpSteps = eSteps.getText().toString();
         steps.add(tmpSteps);
         eSteps.getText().clear();
-
+        createRecipeAdapter mAdapter = new createRecipeAdapter(context, steps);
+        //mRecyclerView = view.findViewById(R.id.recyclerView);
+        StepsView.setHasFixedSize(true);
+        StepsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        StepsView.setAdapter(mAdapter);
     }
 
     public void submitRecipe(View view){
         //TODO : CREATE POSTS ALONG WITH RECIPES
-        EditText eName = getView().findViewById(R.id.editName);
+        final EditText eName = getView().findViewById(R.id.editName);
         sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
     //    completedRecipe.setSteps(steps);
@@ -187,6 +226,20 @@ public class createRecipeActivity extends Fragment {
                         steps.clear();
                         ingredients.clear();
                         Log.d(TAG, "Cleared lists");
+
+                        createRecipeAdapter mAdapter = new createRecipeAdapter(context, steps);
+                        //mRecyclerView = view.findViewById(R.id.recyclerView);
+                        IngredientView.setHasFixedSize(true);
+                        IngredientView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        IngredientView.setAdapter(mAdapter);
+
+                        createRecipeAdapter mAdapter2 = new createRecipeAdapter(context, steps);
+                        //mRecyclerView = view.findViewById(R.id.recyclerView);
+                        StepsView.setHasFixedSize(true);
+                        StepsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+                        StepsView.setAdapter(mAdapter2);
+
+                        eName.getText().clear();
                     }
                 })
                 .addOnFailureListener(new OnFailureListener() {

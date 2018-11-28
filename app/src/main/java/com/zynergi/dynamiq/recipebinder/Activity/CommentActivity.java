@@ -80,7 +80,7 @@ public class CommentActivity extends AppCompatActivity {
             return;
         }
 
-        Comment comment = new Comment(post.getRecipe().getPostID(), commentText);
+        Comment comment = new Comment(recipeId, commentText);
         editText.setText("");
 
         post.addComment(comment);
@@ -96,6 +96,18 @@ public class CommentActivity extends AppCompatActivity {
                 Log.d("Comments: ", "failed to upload comment");
             }
         });
+
+        getComments(new CommentCallBack() {
+            @Override
+            public void onCallBack(List<Comment> comments) {
+                recyclerView = findViewById(R.id.commentRecycler);
+                layoutManager = new LinearLayoutManager(context);
+                recyclerView.setHasFixedSize(true);
+                recyclerView.setLayoutManager(layoutManager);
+                commentAdapter = new CommentAdapter(context, comments);
+                recyclerView.setAdapter(commentAdapter);
+            }
+        });
     }
 
     public interface CommentCallBack {
@@ -105,7 +117,7 @@ public class CommentActivity extends AppCompatActivity {
     private void getComments(final CommentCallBack commentCallBack) {
         CollectionReference comments = db.collection("comments");
 
-        comments.whereEqualTo("postId", post.getRecipe().getPostID()).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+        comments.whereEqualTo("postId", recipeId).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                 List<Comment> postComments = queryDocumentSnapshots.toObjects(Comment.class);

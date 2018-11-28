@@ -3,6 +3,7 @@ package com.zynergi.dynamiq.recipebinder.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -11,6 +12,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.Profile.Profile;
 import com.zynergi.dynamiq.recipebinder.R;
@@ -57,7 +59,17 @@ public class PostActivity extends AppCompatActivity {
 
         final String uid = auth.getCurrentUser().getUid();
 
-        DocumentReference documentReference = db.collection("profiles").document(uid);
+        Log.d("current uid ", uid);
+
+        Log.d("post recipe postID ", post.getRecipe().getPostID());
+
+        post.addUid(uid);
+
+        db.collection("posts").document(post.getRecipe().getPostID()).update("uids", post.getUids());
+
+        /*DocumentReference documentReference = db.collection("profiles").document(uid);
+
+
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -68,7 +80,7 @@ public class PostActivity extends AppCompatActivity {
 
                 db.collection("profiles").document(uid).update("favoriteRecipes",currentUser.getFavoriteRecipes());
             }
-        });
+        });*/
 
     }
 }

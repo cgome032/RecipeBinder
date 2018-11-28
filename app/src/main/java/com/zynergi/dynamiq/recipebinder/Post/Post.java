@@ -1,5 +1,7 @@
 package com.zynergi.dynamiq.recipebinder.Post;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -12,23 +14,21 @@ public class Post implements Serializable {
     private String recipeId;
     private Recipe recipe;
     private List<Comment> comments;
-    private int likes;
+    private List<String> uids = new ArrayList<>();
+
 
 
     public Post() {
-        this.likes = 0;
         this.comments = new ArrayList<>();
     }
 
     public Post(String id) {
         this.recipeId = id;
-        this.likes = 0;
         this.comments = new ArrayList<>();
     }
 
     public Post(Recipe recipe) {
         this.recipe = recipe;
-        this.likes = 0;
         this.comments = new ArrayList<>();
     }
 
@@ -41,9 +41,9 @@ public class Post implements Serializable {
     //doing this to try to make a deep copy
     public Post(Post post) {
         this.recipeId = post.getRecipeId();
-        this.likes = post.getLikes();
         this.comments = post.getComments();
         this.recipe = post.getRecipe();
+        this.uids = post.getUids();
     }
     public String getRecipeId() {
         return recipeId;
@@ -57,14 +57,6 @@ public class Post implements Serializable {
         return comments;
     }
 
-    public void setLikes(int likes) {
-        this.likes = likes;
-    }
-
-    public int getLikes() {
-        return likes;
-    }
-
     public Recipe getRecipe() {
         return recipe;
     }
@@ -75,5 +67,20 @@ public class Post implements Serializable {
 
     public void addComment(Comment comment) {
         this.comments.add(comment);
+    }
+
+    public List<String> getUids() {
+        return uids;
+    }
+
+    public void setUids(List<String> uids) {
+        this.uids = uids;
+    }
+
+    public void addUid(String uid) {
+
+        Log.d("PostUid", uid);
+
+        this.uids.add(uid);
     }
 }

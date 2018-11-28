@@ -127,7 +127,7 @@ public class createRecipeActivity extends Fragment {
                             @Override
                             public void onSuccess(DocumentReference documentReference1) {
                                 Log.d(TAG, "Post added with id " + documentReference1.getId());
-                                db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
+                                db.collection("recipes").document(documentReference.getId()).update("postID", documentReference.getId());
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

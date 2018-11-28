@@ -13,22 +13,28 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseError;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.zynergi.dynamiq.recipebinder.Post.Post;
 import com.zynergi.dynamiq.recipebinder.Post.Recipe;
+import com.zynergi.dynamiq.recipebinder.Profile.Profile;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class createRecipeActivity extends Fragment {
@@ -41,7 +47,19 @@ public class createRecipeActivity extends Fragment {
     Recipe recipeObject = new Recipe();
  //   DatabaseReference mDatabase;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private FirebaseAuth mAuth = FirebaseAuth.getInstance();
+    private String uid;
+    private String sName;
+    private List<String> recipes;
+    private EditText eSteps;
+    private EditText eIngredients;
+    private String postUid;
+    private String recipe;
+    private List<String> postUIDs;
+
 //    CollectionReference recipes = db.collection("recipes");
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -49,10 +67,15 @@ public class createRecipeActivity extends Fragment {
 
         // Add Ingredients method
         Button addIngredientButton = rootView.findViewById(R.id.btnIngred);
+        eIngredients = rootView.findViewById(R.id.editIngredients);
+        eSteps = rootView.findViewById(R.id.editSteps);
+
         addIngredientButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addIngredients(v);
+                //isEmpty = true;
+                if (!eIngredients.getText().toString().isEmpty())
+                    addIngredients(v);
             }
         });
 
@@ -61,7 +84,8 @@ public class createRecipeActivity extends Fragment {
         addStepsButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                addSteps(v);
+                if (!eSteps.getText().toString().isEmpty())
+                    addSteps(v);
             }
         });
 
@@ -85,11 +109,12 @@ public class createRecipeActivity extends Fragment {
    //     mDatabase = FirebaseDatabase.getInstance().getReference("recipes");
         steps = new ArrayList<>();
         ingredients = new ArrayList<>();
+        recipes = new ArrayList<>();
+        postUIDs = new ArrayList<>();
 
     }
 
     public void addIngredients(View view){
-        EditText eIngredients = getView().findViewById(R.id.editIngredients);
         String tmpIngredients = eIngredients.getText().toString();
         ingredients.add(tmpIngredients);
      //   completedRecipe.addIngredient(tmpIngredients);
@@ -98,7 +123,6 @@ public class createRecipeActivity extends Fragment {
     }
 
     public void addSteps(View view){
-        EditText eSteps = getView().findViewById(R.id.editSteps);
         String tmpSteps = eSteps.getText().toString();
         steps.add(tmpSteps);
         eSteps.getText().clear();
@@ -108,7 +132,7 @@ public class createRecipeActivity extends Fragment {
     public void submitRecipe(View view){
         //TODO : CREATE POSTS ALONG WITH RECIPES
         EditText eName = getView().findViewById(R.id.editName);
-        String sName = eName.getText().toString();
+        sName = eName.getText().toString();
     //    completedRecipe.setName(sName);
     //    completedRecipe.setSteps(steps);
         recipeObject.setName(sName);
@@ -123,11 +147,36 @@ public class createRecipeActivity extends Fragment {
 
                         Post post = new Post(recipeObject, documentReference.getId());
 
+
                         db.collection("posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
                             @Override
                             public void onSuccess(DocumentReference documentReference1) {
                                 Log.d(TAG, "Post added with id " + documentReference1.getId());
                                 db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
+                                uid  = mAuth.getCurrentUser().getUid();
+                                postUid = documentReference1.getId();
+                                DocumentReference docRef = db.collection("profiles").document(uid);
+                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                        if (task.isSuccessful()) {
+                                            DocumentSnapshot document = task.getResult();
+                                            if (document.exists()) {
+                                                postUIDs = (List<String>)document.getData().get("recipeNames");
+                                                DocumentReference docRef = db.collection("profiles").document(uid);
+                                                postUIDs.add(postUid);
+                                                docRef.update("recipeNames",recipes)
+                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                            @Override
+                                                            public void onSuccess(Void aVoid) {
+                                                                Log.d(TAG,  "Success to update User");
+                                                            }
+                                                        });
+
+                                            }
+                                        }
+                                    }
+                                });
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

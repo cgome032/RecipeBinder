@@ -25,7 +25,7 @@ public class createRecipeAdapter extends RecyclerView.Adapter<createRecipeAdapte
         public createRecipeViewHolder(View view) {
             super(view);
             textView = view.findViewById(R.id.commentTextView);
-            
+
         }
     }
 

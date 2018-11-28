@@ -15,13 +15,17 @@ import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.zynergi.dynamiq.recipebinder.Menu_activity;
+import com.zynergi.dynamiq.recipebinder.Profile.Profile;
 import com.zynergi.dynamiq.recipebinder.R;
 
 public class LoginActivity extends AppCompatActivity {
@@ -123,6 +127,25 @@ public class LoginActivity extends AppCompatActivity {
                             FirebaseUser user = mAuth.getCurrentUser();
                             Toast.makeText(getApplicationContext(), "Success", Toast.LENGTH_SHORT).show();
                             String uid = user.getUid();
+                            Profile tempProfile = new Profile();
+                            tempProfile.setName(user.getDisplayName());
+                            tempProfile.setDescription("I am a mysterious person");
+                            FirebaseFirestore db = FirebaseFirestore.getInstance();
+                            db.collection("profiles").document(uid)
+                                    .set(tempProfile)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+                                            Log.d(TAG, "DocumentSnapshot successfully written!");
+                                            finish();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w(TAG, "Error writing Document");
+                                        }
+                                    });
                             startActivity(new Intent(LoginActivity.this, Menu_activity.class).putExtra("uid", uid));
                         } else {
                             // If sign in fails, display a message to the user.

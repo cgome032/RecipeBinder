@@ -58,6 +58,7 @@ public class createRecipeActivity extends Fragment {
     private List<String> recipes;
     private EditText eSteps;
     private EditText eIngredients;
+    private EditText eName;
     private String postUid;
     private String recipe;
     private List<String> postUIDs;
@@ -168,87 +169,92 @@ public class createRecipeActivity extends Fragment {
         StepsView.setAdapter(mAdapter);
     }
 
-    public void submitRecipe(View view){
-        //TODO : CREATE POSTS ALONG WITH RECIPES
-        final EditText eName = getView().findViewById(R.id.editName);
+    public void submitRecipe(final View view){
+        eName = getView().findViewById(R.id.editName);
         sName = eName.getText().toString();
-    //    completedRecipe.setName(sName);
-    //    completedRecipe.setSteps(steps);
-        recipeObject.setName(sName);
-        recipeObject.setSteps(steps);
-        recipeObject.setIngredients(ingredients);
-        db.collection("recipes")
-                .add(recipeObject)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(final DocumentReference documentReference) {
-                        Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
+        if (!sName.isEmpty()) {
+            //    completedRecipe.setName(sName);
+            //    completedRecipe.setSteps(steps);
+            recipeObject.setName(sName);
+            recipeObject.setSteps(steps);
+            recipeObject.setIngredients(ingredients);
+            db.collection("recipes")
+                    .add(recipeObject)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(final DocumentReference documentReference) {
+                            Log.d(TAG, "DocumentSnapshot added with ID: " + documentReference.getId());
 
-                        Post post = new Post(recipeObject, documentReference.getId());
+                            Post post = new Post(recipeObject, documentReference.getId());
 
 
-                        db.collection("posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                            @Override
-                            public void onSuccess(DocumentReference documentReference1) {
-                                Log.d(TAG, "Post added with id " + documentReference1.getId());
-                                db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
-                                uid  = mAuth.getCurrentUser().getUid();
-                                postUid = documentReference1.getId();
-                                DocumentReference docRef = db.collection("profiles").document(uid);
-                                docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                                        if (task.isSuccessful()) {
-                                            DocumentSnapshot document = task.getResult();
-                                            if (document.exists()) {
-                                                postUIDs = (List<String>)document.getData().get("recipeNames");
-                                                DocumentReference docRef = db.collection("profiles").document(uid);
-                                                postUIDs.add(postUid);
-                                                docRef.update("recipeNames",recipes)
-                                                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                            @Override
-                                                            public void onSuccess(Void aVoid) {
-                                                                Log.d(TAG,  "Success to update User");
-                                                            }
-                                                        });
+                            db.collection("posts").add(post).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                @Override
+                                public void onSuccess(DocumentReference documentReference1) {
+                                    Log.d(TAG, "Post added with id " + documentReference1.getId());
+                                    db.collection("recipes").document(documentReference.getId()).update("postid", documentReference.getId());
+                                    uid = mAuth.getCurrentUser().getUid();
+                                    postUid = documentReference1.getId();
+                                    DocumentReference docRef = db.collection("profiles").document(uid);
+                                    docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                                            if (task.isSuccessful()) {
+                                                DocumentSnapshot document = task.getResult();
+                                                if (document.exists()) {
+                                                    postUIDs = (List<String>) document.getData().get("recipeNames");
+                                                    DocumentReference docRef = db.collection("profiles").document(uid);
+                                                    postUIDs.add(postUid);
+                                                    docRef.update("recipeNames", recipes)
+                                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                                @Override
+                                                                public void onSuccess(Void aVoid) {
+                                                                    Log.d(TAG, "Success to update User");
+                                                                }
+                                                            });
 
+                                                }
                                             }
                                         }
-                                    }
-                                });
-                            }
-                        }).addOnFailureListener(new OnFailureListener() {
-                            @Override
-                            public void onFailure(@NonNull Exception e) {
-                                Log.w(TAG, "Error adding document", e);
-                            }
-                        });
-                        steps.clear();
-                        ingredients.clear();
-                        Log.d(TAG, "Cleared lists");
+                                    });
+                                }
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    Log.w(TAG, "Error adding document", e);
+                                }
+                            });
+                            ClearAll(view);
 
-                        createRecipeAdapter mAdapter = new createRecipeAdapter(context, steps);
-                        //mRecyclerView = view.findViewById(R.id.recyclerView);
-                        IngredientView.setHasFixedSize(true);
-                        IngredientView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        IngredientView.setAdapter(mAdapter);
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w(TAG, "Error adding document", e);
+                        }
+                    });
+        }
 
-                        createRecipeAdapter mAdapter2 = new createRecipeAdapter(context, steps);
-                        //mRecyclerView = view.findViewById(R.id.recyclerView);
-                        StepsView.setHasFixedSize(true);
-                        StepsView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                        StepsView.setAdapter(mAdapter2);
+    }
+    public void ClearAll(View view){
+        eName = getView().findViewById(R.id.editName);
+        steps.clear();
+        ingredients.clear();
+        eName.getText().clear();
+        Log.d(TAG, "Cleared lists");
 
-                        eName.getText().clear();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w(TAG, "Error adding document", e);
-                    }
-                });
+        createRecipeAdapter mAdapter = new createRecipeAdapter(context, steps);
+        //mRecyclerView = view.findViewById(R.id.recyclerView);
+        IngredientView.setHasFixedSize(true);
+        IngredientView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        IngredientView.setAdapter(mAdapter);
 
+        createRecipeAdapter mAdapter2 = new createRecipeAdapter(context, steps);
+        //mRecyclerView = view.findViewById(R.id.recyclerView);
+        StepsView.setHasFixedSize(true);
+        StepsView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        StepsView.setAdapter(mAdapter2);
     }
 /*
         mDatabase.child(id).setValue(completedRecipe, new DatabaseReference.CompletionListener(){

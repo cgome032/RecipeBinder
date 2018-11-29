@@ -3,6 +3,7 @@ package com.zynergi.dynamiq.recipebinder.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 
@@ -57,7 +58,13 @@ public class PostActivity extends AppCompatActivity {
 
         final String uid = auth.getCurrentUser().getUid();
 
-        DocumentReference documentReference = db.collection("profiles").document(uid);
+        post.addUid(uid);
+
+        Log.d("favoriteId ", post.getId());
+
+        db.collection("posts").document(post.getId()).update("uids", post.getUids());
+
+        /*DocumentReference documentReference = db.collection("profiles").document(uid);
 
         documentReference.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
             @Override
@@ -68,7 +75,7 @@ public class PostActivity extends AppCompatActivity {
 
                 db.collection("profiles").document(uid).update("favoriteRecipes",currentUser.getFavoriteRecipes());
             }
-        });
+        });*/
 
     }
 }
